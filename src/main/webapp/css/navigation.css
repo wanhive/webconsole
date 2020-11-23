@@ -1,0 +1,281 @@
+@charset "UTF-8";
+
+body {
+	background-color: #efefef;
+	color: #222;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+		"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 15px;
+	counter-reset: Serial;
+}
+
+label {
+	/*display: inline-block;*/
+	white-space: nowrap;
+	width: 5em;
+}
+
+table {
+	width: 100%;
+	font-size: 1em;
+}
+
+table th {
+	white-space: nowrap;
+}
+
+table.auto-index tbody tr td:first-child:before {
+	counter-increment: Serial; /* Increment the Serial counter */
+	content: counter(Serial); /* Display the counter */
+}
+
+h1 {
+	font-weight: normal;
+}
+
+a {
+	text-decoration: none;
+	color: #0069ff;
+}
+
+fieldset {
+	padding: 0;
+	border: 0;
+	margin-top: 25px;
+}
+
+header {
+	background-color: #fefeff;
+	padding: 3px;
+	text-align: center;
+}
+
+/* ----------------------------------------------------------- */
+/* Add a background color to the top navigation */
+.topnav {
+	background-color: #fff;
+	border: 1px solid #dedede;
+	border-radius: 4px;
+	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
+	color: #000;
+	display: block;
+	overflow: hidden;
+	margin: 8px 22px 20px 22px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+	float: left;
+	display: block;
+	color: #000;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	/*font-size: 17px;*/
+}
+
+/* Add an active class to highlight the current page */
+.topnav .active {
+	background-color: #125687;
+	color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+	display: none;
+}
+
+/* Dropdown container - needed to position the dropdown content */
+.dropdown {
+	float: left;
+	overflow: hidden;
+}
+
+/* Style the dropdown button to fit inside the topnav */
+.dropdown .dropbtn {
+	/*font-size: 17px;*/
+	border: none;
+	outline: none;
+	color: #000;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #efefef;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+/* Add a background on topnav links and the dropdown button on hover */
+.topnav a:hover, .dropdown:hover .dropbtn {
+	background-color: #1c8adb;
+	color: white;
+}
+
+/* Add a background to dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #125687;
+	color: #fff;
+}
+
+/* Show the dropdown menu when the user moves the mouse over the dropdown button */
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/* ----------------------------------------------------------- */
+* {
+	box-sizing: border-box;
+}
+
+.left {
+	float: left;
+	width: 15%;
+	text-align: center;
+}
+
+.left ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+.left a {
+	text-decoration: none;
+	background-color: #1c8adb;
+	padding: 8px;
+	margin-top: 7px;
+	display: block;
+	width: 100%;
+	color: #eee;
+	border-radius: 5px;
+}
+
+.left a:hover {
+	background-color: #125687;
+	color: #fff;
+}
+
+.main {
+	float: left;
+	width: 70%;
+	padding: 0 20px;
+	overflow-x: auto;
+}
+
+.main table {
+	margin: 1em 0;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.main table td, .main table th {
+	border: 1px solid #eee;
+	padding: .6em 10px;
+	text-align: left;
+}
+
+.main table th {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
+
+.right {
+	background-color: #fff;
+	float: left;
+	width: 15%;
+	padding: 15px;
+	margin-top: 7px;
+	text-align: center;
+}
+
+.footer {
+	background-color: #e5e5e5;
+	font-size: smaller;
+	text-align: center;
+	padding: 10px;
+	margin-top: 7px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
+
+#wait-veil {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 100000;
+	top: 0;
+	left: 0;
+	background-color: #dddddd;
+	opacity: 0.5;
+	text-align: center;
+	/*display: none;*/
+}
+
+@media only screen and (max-width:800px) {
+	/* When the screen is less than xxxx pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+	.topnav a:not(:first-child ), .dropdown .dropbtn {
+		display: none;
+	}
+	.topnav a.icon {
+		float: right;
+		display: block;
+	}
+
+	/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+	.topnav.responsive {
+		position: relative;
+	}
+	.topnav.responsive a.icon {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.topnav.responsive a {
+		float: none;
+		display: block;
+		text-align: left;
+	}
+	.topnav.responsive .dropdown {
+		float: none;
+	}
+	.topnav.responsive .dropdown-content {
+		position: relative;
+	}
+	.topnav.responsive .dropdown .dropbtn {
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
+
+	/* For mobile phones: */
+	.left, .main, .right {
+		width: 100%;
+		height: auto;
+	}
+	.left {
+		display: none;
+	}
+}

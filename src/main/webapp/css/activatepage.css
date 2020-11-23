@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #e0e0e0;
+	color: #222;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+		"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 15px;
+}
+
+a {
+	text-decoration: none;
+	color: #0069ff;
+}
+
+.header {
+	height: 45px; /* Set header height */
+	background: #464646; /* Set header background color */
+}
+
+.header h3 {
+	color: #FFFFF3; /* Set header heading(top left title ) color */
+	padding: 10px; /* Set padding, to center it within the header */
+	font-weight: normal;
+	/* Set font weight to normal, default it was set to bold */
+}
+
+.wrap {
+	width: 360px;
+	height: 480px;
+	background: rgba(255, 255, 255, 1.0);
+	color: #000;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	box-sizing: border-box;
+	padding: 70px 30px;
+}
+
+/* Form & Input field styles */
+.wrap input {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.wrap input[type="text"], input[type="email"], input[type="password"] {
+	border: none;
+	border-bottom: 1px solid #995c00;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: #000;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.wrap input[type="submit"] {
+	border: none;
+	outline: none;
+	height: 40px;
+	background: #1c8adb;
+	color: #eee;
+	font-size: 18px;
+	border-radius: 5px;
+}
+
+.wrap input[type="submit"]:hover {
+	cursor: pointer;
+	background: #125687;
+	color: #fff;
+}
+
+.wrap a {
+	text-decoration: none;
+	font-size: 14px;
+	color: #555;
+}
+
+.wrap a:hover {
+	color: #000;
+}
+
+.footer {
+	background: rgba(255, 255, 255, 0.7);
+	text-align: center;
+	padding: 10px;
+	margin-top: 7px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
