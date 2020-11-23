@@ -7,7 +7,7 @@
 
 	<groupId>com.wanhive.iot</groupId>
 	<artifactId>webconsole</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<packaging>war</packaging>
 
 	<name>Wanhive IoT web console</name>
