@@ -39,12 +39,12 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-	<!-- https://mvnrepository.com/artifact/junit/junit -->
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13</version>
+			<version>[4.13.1,)</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
