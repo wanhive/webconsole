@@ -14,6 +14,7 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
 
+import com.wanhive.iot.bean.Status;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.dao.UserDao;
 import com.wanhive.iot.util.Role;
@@ -29,13 +30,13 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext) {
 		try {
-			//Retrieve the HTTP Authorization header from the request
+			// Retrieve the HTTP Authorization header from the request
 			String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 			if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
 				throw new NotAuthorizedException("Authorization header missing");
 			}
 
-			//Extract and validate the token
+			// Extract and validate the token
 			String token = authorizationHeader.substring("Bearer".length()).trim();
 			final User subject = UserDao.verifyToken(token);
 			requestContext.setSecurityContext(new SecurityContext() {
@@ -79,7 +80,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 			});
 
 		} catch (Exception e) {
-			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+					.entity(new Status("error", "request denied")).build());
 		}
 	}
 }

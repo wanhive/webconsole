@@ -36,7 +36,7 @@ public class AuthenticationResource {
 						.build();
 			}
 		} catch (Exception e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "invalid request")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
 		}
 	}
 
@@ -52,7 +52,7 @@ public class AuthenticationResource {
 						.build();
 			}
 		} catch (Exception e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "invalid request")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
 		}
 	}
 }
