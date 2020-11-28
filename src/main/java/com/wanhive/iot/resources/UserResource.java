@@ -17,10 +17,10 @@ import javax.ws.rs.core.SecurityContext;
 import com.wanhive.iot.Constants;
 import com.wanhive.iot.IotApplication;
 import com.wanhive.iot.bean.Challenge;
-import com.wanhive.iot.bean.Status;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.dao.UserDao;
 import com.wanhive.iot.util.Secured;
+import com.wanhive.iot.util.StatusMessage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.SwaggerDefinition;
@@ -45,15 +45,14 @@ public class UserResource {
 	public Response create(@FormParam("alias") String alias, @FormParam("email") String email,
 			@FormParam("captcha") String captcha) {
 		if (!Constants.isSignUpAllowed() || !IotApplication.verifyCaptcha(captcha)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 		}
 
 		try {
 			UserDao.create(alias, email);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -62,15 +61,14 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(User user) {
 		if (!Constants.isSignUpAllowed() || !IotApplication.verifyCaptcha(user.getCaptcha())) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 		}
 
 		try {
 			UserDao.create(user.getAlias(), user.getEmail());
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -81,15 +79,14 @@ public class UserResource {
 	public Response activate(@FormParam("context") String context, @FormParam("challenge") String challenge,
 			@FormParam("secret") String secret, @FormParam("captcha") String captcha) {
 		if (!IotApplication.verifyCaptcha(captcha)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 		}
 
 		try {
 			UserDao.activate(context, challenge, secret);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -99,15 +96,14 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response activate(Challenge challenge) {
 		if (!IotApplication.verifyCaptcha(challenge.getCaptcha())) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 		}
 
 		try {
 			UserDao.activate(challenge.getContext(), challenge.getChallenge(), challenge.getSecret());
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -116,14 +112,13 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getChallenge(@QueryParam("email") String email, @QueryParam("captcha") String captcha) {
 		if (!IotApplication.verifyCaptcha(captcha)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 		}
 		try {
 			UserDao.generateChallenge(email);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -138,8 +133,7 @@ public class UserResource {
 			UserDao.changePassword(getUserUid(), oldPassword, password);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -153,8 +147,7 @@ public class UserResource {
 			UserDao.changePassword(getUserUid(), user.getOldPassword(), user.getPassword());
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -165,10 +158,9 @@ public class UserResource {
 	public Response deleteToken() {
 		try {
 			UserDao.removeToken(getUserUid());
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 }

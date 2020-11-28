@@ -14,9 +14,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
-import com.wanhive.iot.bean.Status;
 import com.wanhive.iot.util.Role;
 import com.wanhive.iot.util.Secured;
+import com.wanhive.iot.util.StatusMessage;
 
 @Secured
 @Provider
@@ -64,8 +64,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 				verify(requestContext.getSecurityContext(), roles);
 			}
 		} catch (Exception e) {
-			requestContext.abortWith(
-					Response.status(Response.Status.FORBIDDEN).entity(new Status("error", "request denied")).build());
+			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).entity(StatusMessage.DENIED).build());
 		}
 	}
 

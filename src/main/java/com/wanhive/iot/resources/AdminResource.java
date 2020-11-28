@@ -14,13 +14,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.wanhive.iot.bean.Status;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.dao.DomainDao;
 import com.wanhive.iot.dao.ThingDao;
 import com.wanhive.iot.dao.UserDao;
 import com.wanhive.iot.util.Role;
 import com.wanhive.iot.util.Secured;
+import com.wanhive.iot.util.StatusMessage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.SwaggerDefinition;
@@ -44,8 +44,7 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.list(limit, offset, order, orderBy, type, status)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -61,8 +60,7 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.search(keyword, limit, offset, order, orderBy, type, status)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -74,8 +72,7 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.count()).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -87,8 +84,7 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.info(uid)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -101,8 +97,7 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.create(alias, email)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -115,8 +110,7 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.create(user.getAlias(), user.getEmail())).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -130,10 +124,9 @@ public class AdminResource {
 			@DefaultValue("-1") @FormParam("status") int status, @DefaultValue("-1") @FormParam("flag") int flag) {
 		try {
 			UserDao.update(uid, alias, password, type, status, flag);
-			return Response.ok(new Status("ok", "updated")).build();
+			return Response.ok(StatusMessage.UPDATED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -145,10 +138,9 @@ public class AdminResource {
 	public Response updateUser(@PathParam("uid") long uid, User user) {
 		try {
 			UserDao.update(uid, user.getAlias(), user.getPassword(), user.getType(), user.getStatus(), user.getFlag());
-			return Response.ok(new Status("ok", "updated")).build();
+			return Response.ok(StatusMessage.UPDATED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -159,10 +151,9 @@ public class AdminResource {
 	public Response deleteToken(@PathParam("uid") long uid) {
 		try {
 			UserDao.removeToken(uid);
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -173,10 +164,9 @@ public class AdminResource {
 	public Response purgeTokens() {
 		try {
 			UserDao.purgeTokens();
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -187,10 +177,9 @@ public class AdminResource {
 	public Response purgeDomains(@PathParam("uid") long uid) {
 		try {
 			DomainDao.purge(uid);
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -201,10 +190,9 @@ public class AdminResource {
 	public Response purgeThings(@PathParam("uid") long uid) {
 		try {
 			ThingDao.purge(uid);
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 }

@@ -14,11 +14,11 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
 
-import com.wanhive.iot.bean.Status;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.dao.UserDao;
 import com.wanhive.iot.util.Role;
 import com.wanhive.iot.util.Secured;
+import com.wanhive.iot.util.StatusMessage;
 
 @Secured
 @Provider
@@ -80,8 +80,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 			});
 
 		} catch (Exception e) {
-			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-					.entity(new Status("error", "request denied")).build());
+			requestContext
+					.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build());
 		}
 	}
 }

@@ -9,9 +9,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.wanhive.iot.IotApplication;
-import com.wanhive.iot.bean.Status;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.dao.UserDao;
+import com.wanhive.iot.util.StatusMessage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.SwaggerDefinition;
@@ -32,11 +32,10 @@ public class AuthenticationResource {
 			if (IotApplication.verifyCaptcha(captcha)) {
 				return Response.ok(UserDao.verifyUser(email, password)).build();
 			} else {
-				return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied"))
-						.build();
+				return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 			}
 		} catch (Exception e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -48,11 +47,10 @@ public class AuthenticationResource {
 			if (IotApplication.verifyCaptcha(user.getCaptcha())) {
 				return Response.ok(UserDao.verifyUser(user.getEmail(), user.getPassword())).build();
 			} else {
-				return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied"))
-						.build();
+				return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 			}
 		} catch (Exception e) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
 		}
 	}
 }

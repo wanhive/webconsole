@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.wanhive.iot.bean.Status;
+import com.wanhive.iot.util.StatusMessage;
 
 @Provider
 public class UncaughtException extends Throwable implements ExceptionMapper<Throwable> {
@@ -15,7 +15,6 @@ public class UncaughtException extends Throwable implements ExceptionMapper<Thro
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response toResponse(Throwable error) {
-		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-				.build();
+		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 	}
 }

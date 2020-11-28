@@ -11,13 +11,13 @@ import javax.ws.rs.core.SecurityContext;
 import com.wanhive.iot.bean.Thing;
 import com.wanhive.iot.dao.ThingDao;
 import com.wanhive.iot.util.Secured;
+import com.wanhive.iot.util.StatusMessage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 
 import com.wanhive.iot.bean.Password;
-import com.wanhive.iot.bean.Status;
 
 @Path("/thing")
 @Api(value = "/thing")
@@ -42,8 +42,7 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.list(getUserUid(), domainUid, limit, offset, order, orderBy)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -59,8 +58,7 @@ public class ThingResource {
 			return Response.ok(ThingDao.search(getUserUid(), domainUid, keyword, limit, offset, order, orderBy))
 					.build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -72,8 +70,7 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.count(getUserUid())).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -85,8 +82,7 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.count(getUserUid(), domainUid)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -98,8 +94,7 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.info(getUserUid(), uid)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -112,8 +107,7 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.create(getUserUid(), domainUid, name, type)).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -126,8 +120,7 @@ public class ThingResource {
 			return Response.ok(ThingDao.create(getUserUid(), thing.getDomainUid(), thing.getName(), thing.getType()))
 					.build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -141,10 +134,9 @@ public class ThingResource {
 			@FormParam("verifier") String verifier) {
 		try {
 			ThingDao.update(getUserUid(), uid, name, type, salt, verifier);
-			return Response.ok(new Status("ok", "updated")).build();
+			return Response.ok(StatusMessage.UPDATED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -156,10 +148,9 @@ public class ThingResource {
 	public Response update(@PathParam("uid") long uid, Thing thing) {
 		try {
 			ThingDao.update(getUserUid(), uid, thing.getName(), thing.getType(), thing.getSalt(), thing.getVerifier());
-			return Response.ok(new Status("ok", "updated")).build();
+			return Response.ok(StatusMessage.UPDATED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -172,10 +163,9 @@ public class ThingResource {
 			@FormParam("password") String password) {
 		try {
 			ThingDao.updateVerifier(getUserUid(), uid, rounds, password);
-			return Response.ok(new Status("ok", "updated")).build();
+			return Response.ok(StatusMessage.UPDATED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -187,10 +177,9 @@ public class ThingResource {
 	public Response computeVerifier(@PathParam("uid") String uid, Password password) {
 		try {
 			ThingDao.updateVerifier(getUserUid(), uid, password.getRounds(), password.getPassword());
-			return Response.ok(new Status("ok", "updated")).build();
+			return Response.ok(StatusMessage.UPDATED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -201,10 +190,9 @@ public class ThingResource {
 	public Response delete(@PathParam("uid") long uid) {
 		try {
 			ThingDao.delete(getUserUid(), uid);
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -214,10 +202,9 @@ public class ThingResource {
 	public Response purge() {
 		try {
 			ThingDao.purge(getUserUid());
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 
@@ -228,10 +215,9 @@ public class ThingResource {
 	public Response purge(@PathParam("domainUid") long domainUid) {
 		try {
 			ThingDao.purge(getUserUid(), domainUid);
-			return Response.ok(new Status("ok", "deleted")).build();
+			return Response.ok(StatusMessage.DELETED).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 		}
 	}
 }
