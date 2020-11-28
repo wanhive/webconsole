@@ -18,8 +18,7 @@ import io.swagger.annotations.Tag;
 
 @Path("/domain")
 @Api(value = "/domain")
-@SwaggerDefinition(tags = {
-		@Tag(name = "Domain registry", description = "REST endpoint for management of domains.") })
+@SwaggerDefinition(tags = { @Tag(name = "Domain registry", description = "REST endpoint for management of domains.") })
 public class DomainResource {
 	@Context
 	private SecurityContext securityContext;
@@ -39,7 +38,8 @@ public class DomainResource {
 		try {
 			return Response.ok(DomainDao.list(getUserUid(), limit, offset, order, orderBy)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -54,7 +54,8 @@ public class DomainResource {
 		try {
 			return Response.ok(DomainDao.search(getUserUid(), keyword, limit, offset, order, orderBy)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -66,7 +67,8 @@ public class DomainResource {
 		try {
 			return Response.ok(DomainDao.count(getUserUid())).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -78,7 +80,8 @@ public class DomainResource {
 		try {
 			return Response.ok(DomainDao.info(getUserUid(), uid)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -90,7 +93,8 @@ public class DomainResource {
 		try {
 			return Response.ok(DomainDao.create(getUserUid(), name, description)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -102,7 +106,8 @@ public class DomainResource {
 		try {
 			return Response.ok(DomainDao.create(getUserUid(), domain.getName(), domain.getDescription())).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -117,7 +122,8 @@ public class DomainResource {
 			DomainDao.update(getUserUid(), uid, name, description);
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -131,7 +137,8 @@ public class DomainResource {
 			DomainDao.update(getUserUid(), uid, domain.getName(), domain.getDescription());
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -144,7 +151,8 @@ public class DomainResource {
 			DomainDao.delete(getUserUid(), uid);
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -156,7 +164,8 @@ public class DomainResource {
 			DomainDao.purge(getUserUid());
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 }

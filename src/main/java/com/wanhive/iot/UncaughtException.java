@@ -15,6 +15,7 @@ public class UncaughtException extends Throwable implements ExceptionMapper<Thro
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response toResponse(Throwable error) {
-		return Response.status(500).entity(new Status("error", "Something bad happened")).build();
+		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+				.build();
 	}
 }

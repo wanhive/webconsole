@@ -44,7 +44,8 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.list(limit, offset, order, orderBy, type, status)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -60,7 +61,8 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.search(keyword, limit, offset, order, orderBy, type, status)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -72,7 +74,8 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.count()).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -84,7 +87,8 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.info(uid)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -97,7 +101,8 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.create(alias, email)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -110,7 +115,8 @@ public class AdminResource {
 		try {
 			return Response.ok(UserDao.create(user.getAlias(), user.getEmail())).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -126,7 +132,8 @@ public class AdminResource {
 			UserDao.update(uid, alias, password, type, status, flag);
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -140,7 +147,8 @@ public class AdminResource {
 			UserDao.update(uid, user.getAlias(), user.getPassword(), user.getType(), user.getStatus(), user.getFlag());
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -153,10 +161,11 @@ public class AdminResource {
 			UserDao.removeToken(uid);
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("user/tokens")
 	@Secured({ Role.ADMINISTRATOR })
@@ -166,10 +175,11 @@ public class AdminResource {
 			UserDao.purgeTokens();
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("user/domains/{uid}")
 	@Secured({ Role.ADMINISTRATOR })
@@ -179,10 +189,11 @@ public class AdminResource {
 			DomainDao.purge(uid);
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("user/things/{uid}")
 	@Secured({ Role.ADMINISTRATOR })
@@ -192,7 +203,8 @@ public class AdminResource {
 			ThingDao.purge(uid);
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 }

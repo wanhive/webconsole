@@ -39,7 +39,7 @@ public class ActivationServlet extends HttpServlet {
 			ch.setCaptcha(captcha);
 			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 			response = invocationBuilder.post(Entity.entity(ch, MediaType.APPLICATION_JSON));
-			success = (response.getStatus() == 200);
+			success = (response.getStatus() == Response.Status.OK.getStatusCode());
 		} finally {
 			try {
 				if (response != null) {

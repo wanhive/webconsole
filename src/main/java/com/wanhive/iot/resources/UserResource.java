@@ -52,7 +52,8 @@ public class UserResource {
 			UserDao.create(alias, email);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -68,7 +69,8 @@ public class UserResource {
 			UserDao.create(user.getAlias(), user.getEmail());
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -86,7 +88,8 @@ public class UserResource {
 			UserDao.activate(context, challenge, secret);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -103,7 +106,8 @@ public class UserResource {
 			UserDao.activate(challenge.getContext(), challenge.getChallenge(), challenge.getSecret());
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -118,7 +122,8 @@ public class UserResource {
 			UserDao.generateChallenge(email);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -133,7 +138,8 @@ public class UserResource {
 			UserDao.changePassword(getUserUid(), oldPassword, password);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -147,7 +153,8 @@ public class UserResource {
 			UserDao.changePassword(getUserUid(), user.getOldPassword(), user.getPassword());
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -160,7 +167,8 @@ public class UserResource {
 			UserDao.removeToken(getUserUid());
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 }

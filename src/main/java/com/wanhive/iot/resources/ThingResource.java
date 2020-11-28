@@ -42,7 +42,8 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.list(getUserUid(), domainUid, limit, offset, order, orderBy)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -58,7 +59,8 @@ public class ThingResource {
 			return Response.ok(ThingDao.search(getUserUid(), domainUid, keyword, limit, offset, order, orderBy))
 					.build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -70,7 +72,8 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.count(getUserUid())).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -82,7 +85,8 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.count(getUserUid(), domainUid)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -94,7 +98,8 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.info(getUserUid(), uid)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -107,7 +112,8 @@ public class ThingResource {
 		try {
 			return Response.ok(ThingDao.create(getUserUid(), domainUid, name, type)).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -120,7 +126,8 @@ public class ThingResource {
 			return Response.ok(ThingDao.create(getUserUid(), thing.getDomainUid(), thing.getName(), thing.getType()))
 					.build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -136,7 +143,8 @@ public class ThingResource {
 			ThingDao.update(getUserUid(), uid, name, type, salt, verifier);
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -150,7 +158,8 @@ public class ThingResource {
 			ThingDao.update(getUserUid(), uid, thing.getName(), thing.getType(), thing.getSalt(), thing.getVerifier());
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -165,7 +174,8 @@ public class ThingResource {
 			ThingDao.updateVerifier(getUserUid(), uid, rounds, password);
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -179,7 +189,8 @@ public class ThingResource {
 			ThingDao.updateVerifier(getUserUid(), uid, password.getRounds(), password.getPassword());
 			return Response.ok(new Status("ok", "updated")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 
@@ -192,10 +203,11 @@ public class ThingResource {
 			ThingDao.delete(getUserUid(), uid);
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
-	
+
 	@DELETE
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
@@ -204,10 +216,11 @@ public class ThingResource {
 			ThingDao.purge(getUserUid());
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("domain/{domainUid}")
 	@Secured
@@ -217,7 +230,8 @@ public class ThingResource {
 			ThingDao.purge(getUserUid(), domainUid);
 			return Response.ok(new Status("ok", "deleted")).build();
 		} catch (Exception e) {
-			return Response.status(500).entity(new Status("error", "request denied")).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Status("error", "request denied"))
+					.build();
 		}
 	}
 }

@@ -42,7 +42,7 @@ public class AuthenticationServlet extends HttpServlet {
 			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 			response = invocationBuilder.post(Entity.entity(subject, MediaType.APPLICATION_JSON));
 
-			if (response.getStatus() == 200) {
+			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 				user = response.readEntity(User.class);
 			}
 		} finally {

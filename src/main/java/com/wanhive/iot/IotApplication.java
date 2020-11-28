@@ -106,7 +106,7 @@ public class IotApplication extends ResourceConfig {
 			Invocation.Builder invocationBuilder = webTarget.request();
 			Response response = invocationBuilder.get();
 
-			if (response.getStatus() == 200) {
+			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 				ReCaptchaResponse rcResponse = response.readEntity(ReCaptchaResponse.class);
 				Logger.getGlobal().info("Captcha verified: " + rcResponse.isSuccess() + ", Score: "
 						+ rcResponse.getScore() + ", Action: " + rcResponse.getAction());
