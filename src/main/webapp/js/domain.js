@@ -410,7 +410,6 @@ $(document)
 				"click",
 				".btn-things",
 				function(e) {
-					// alert($(this).closest("tr").find('td:eq(1)').text());
 					window.location = "thing.jsp?domainUid="
 						+ $(this).closest("tr")
 							.find('td:eq(1)').text();

@@ -320,7 +320,7 @@ public class UserDao {
 			throw new Exception("Invalid parameters");
 		}
 
-		String query = "update wh_user set modifiedon= now(), password=crypt(? , gen_salt('bf')), status= 1 where email=? and token=? and (status=0 or status=1) and tokentimestamp > now() - interval '900 seconds'";
+		String query = "update wh_user set modifiedon= now(), password=crypt(? , gen_salt('bf')), status= 1 where email=? and token=? and (status=0 or status=1) and now() < tokentimestamp + interval '900 seconds'";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
 			ps.setString(1, secret);

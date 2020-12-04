@@ -5,10 +5,6 @@ $(document)
 	.ready(
 		function() {
 			var errorMessage = "Request denied.";
-			function requestSecurityChallenge() {
-
-			}
-
 			$("#logonform")
 				.on(
 					"submit",

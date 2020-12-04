@@ -10,19 +10,7 @@
 <link rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/activatepage.css">
 <script type="text/javascript" src="widget/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#secret, #cnfsecret').on('keyup', function() {
-			if ($('#secret').val() == $('#cnfsecret').val()) {
-				$('#message').html('Matching').css('color', 'green');
-				$(':input[type="submit"]').prop('disabled', false);
-			} else {
-				$(':input[type="submit"]').prop('disabled', true);
-				$('#message').html('Not Matching').css('color', 'red');
-			}
-		});
-	});
-</script>
+<script type="text/javascript" src="js/activate.js"></script>
 <jsp:include page="include/recaptcha3.jsp">
 	<jsp:param name="reCaptchaAction" value="activateuser" />
 </jsp:include>
@@ -36,7 +24,7 @@
 
 	<!-- start wrap div -->
 	<div class="wrap">
-		<form action="Activate" method="post">
+		<form action="Activate" method="post" id="activationForm">
 			<fieldset>
 				<legend>Activate account</legend>
 				<input type="email" name="context" required="required"

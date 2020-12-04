@@ -5,10 +5,6 @@
 $(document)
 	.ready(
 		function() {
-			function requestSecurityChallenge() {
-
-			}
-
 			$("#passform")
 				.on(
 					"submit",

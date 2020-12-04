@@ -108,8 +108,6 @@ public class IotApplication extends ResourceConfig {
 
 			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 				ReCaptchaResponse rcResponse = response.readEntity(ReCaptchaResponse.class);
-				Logger.getGlobal().info("Captcha verified: " + rcResponse.isSuccess() + ", Score: "
-						+ rcResponse.getScore() + ", Action: " + rcResponse.getAction());
 
 				return (rcResponse.isSuccess() && rcResponse.getScore() > 0.5);
 			} else {
