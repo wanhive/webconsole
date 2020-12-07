@@ -1,5 +1,6 @@
 /**
- * 
+ * User account activation: either a new user completing the sign up process
+ * or, an existing user attempting account recovery.
  */
 
 $(document).ready(function() {
