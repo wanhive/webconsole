@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+- Delete the bearer token on sign out.
 - Upgrade the junit version in pom.xml to fix a security issue with the older version.
 
 ## [0.1.0] - 2020-11-25

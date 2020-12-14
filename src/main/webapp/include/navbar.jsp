@@ -11,7 +11,7 @@
 		Account <i class="fa fa-caret-down"></i>
 	</button>
 	<div class="dropdown-content">
-		<a href="index.jsp">Sign out</a> <a href="settings.jsp">Settings</a>
+		<a href="SignOut">Sign out</a> <a href="settings.jsp">Settings</a>
 	</div>
 </div>
 

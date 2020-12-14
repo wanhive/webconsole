@@ -15,6 +15,9 @@ public class User {
 	private String oldPassword;
 	private int type;
 	private int status;
+	private int flag;
+	private String token;
+	private String captcha;
 	public long getUid() {
 		return uid;
 	}
@@ -87,7 +90,4 @@ public class User {
 	public void setCaptcha(String captcha) {
 		this.captcha = captcha;
 	}
-	private int flag;
-	private String token;
-	private String captcha;
 }
