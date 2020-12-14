@@ -9,19 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- JSESSIONID SameSite attribute fix for new browsers.
+- Use javascript to trim the critical user inputs like a *challenge-code*.
+- JSESSIONID SameSite attribute fix for the new browsers.
 
 ### Changed
 
-- Trim the request parameters with javascript.
-- Improve error status reporting by the web services.
+- Improve error status reporting of web services.
 - Reorganize and refactor the javascript source files.
 - Rename and update the code of conduct file.
+- Upgrade the downloadable configuration and data files to the new formats.
 
 ### Security
 
-- Delete the bearer token on sign out.
-- Upgrade the junit version in pom.xml to fix a security issue with the older version.
+- Delete the bearer token on a sign-out.
+- Set the *SameSite* cookie attribute to *strict*.
 
 ## [0.1.0] - 2020-11-25
 
