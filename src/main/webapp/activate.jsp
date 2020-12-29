@@ -9,7 +9,7 @@
 	</jsp:include></title>
 <link rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/activatepage.css">
-<script type="text/javascript" src="widget/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="widget/jquery.min.js"></script>
 <script type="text/javascript" src="js/activate.js"></script>
 <jsp:include page="include/recaptcha3.jsp">
 	<jsp:param name="reCaptchaAction" value="activateuser" />

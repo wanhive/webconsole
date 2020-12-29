@@ -2,10 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	if (!Constants.isSignUpAllowed()) {
-		response.sendRedirect("index.jsp");
-		return;
-	}
+if (!Constants.isSignUpAllowed()) {
+	response.sendRedirect("index.jsp");
+	return;
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,7 @@
 	href="widget/jquery-ui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css"
 	href="widget/fontawesome/css/all.min.css">
-<script type="text/javascript" src="widget/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="widget/jquery.min.js"></script>
 <script type="text/javascript" src="widget/jquery.timeago.js"></script>
 <script type="text/javascript" src="widget/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/newuser.js"></script>
