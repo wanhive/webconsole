@@ -5,10 +5,14 @@ import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.naming.NamingException;
+import javax.ws.rs.NotFoundException;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -20,10 +24,11 @@ import com.wanhive.iot.provider.DataSourceProvider;
 
 public class UserDao {
 	public static PagedList list(long limit, long offset, String order, String orderBy, int type, int status)
-			throws Exception {
+			throws SQLException, NamingException {
 		if (limit > Constants.getMaxItemsInList()) {
-			throw new Exception("Invalid parameter");
+			throw new IllegalArgumentException("Invalid limit");
 		}
+
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select uid, createdon, modifiedon, alias, email, type, status, flag, count(*) over() as totalrecords from wh_user ");
@@ -87,19 +92,20 @@ public class UserDao {
 			pl.setRecordsFiltered(list.size());
 			pl.setData(list);
 			return pl;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	public static PagedList search(String keyword, long limit, long offset, String order, String orderBy, int type,
-			int status) throws Exception {
-		if (limit > Constants.getMaxItemsInList() || keyword == null || keyword.length() < 3) {
-			throw new Exception("Invalid parameter");
-		} else {
-			keyword = "%" + keyword.toLowerCase() + "%";
+			int status) throws SQLException, NamingException {
+		if (limit > Constants.getMaxItemsInList()) {
+			throw new IllegalArgumentException("Invalid limit");
 		}
 
+		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()) {
+			throw new IllegalArgumentException("Invalid keyword");
+		}
+
+		keyword = "%" + keyword.toLowerCase() + "%";
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select uid, createdon, modifiedon, alias, email, type, status, flag, count(*) over() as totalrecords from wh_user where (lower(alias) like ? or lower(email) like ?) ");
@@ -161,12 +167,10 @@ public class UserDao {
 			pl.setRecordsFiltered(list.size());
 			pl.setData(list);
 			return pl;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static long count() throws Exception {
+	public static long count() throws SQLException, NamingException {
 		long count = 0;
 		String query = "select count(uid) from wh_user";
 		try (Connection conn = DataSourceProvider.get().getConnection();
@@ -177,12 +181,10 @@ public class UserDao {
 				}
 			}
 			return count;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static User info(long uid) throws Exception {
+	public static User info(long uid) throws SQLException, NamingException {
 		String query = "select uid, createdon, modifiedon, alias, email, type, status, flag from wh_user where uid = ?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
@@ -205,21 +207,19 @@ public class UserDao {
 			if (subject != null) {
 				return subject;
 			} else {
-				throw new Exception("Not found");
+				throw new NotFoundException("Not found");
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static long create(String alias, String email) throws Exception {
-		if (alias == null || alias.length() == 0 || email == null || email.length() == 0) {
-			throw new Exception("Invalid parameters");
+	public static long create(String alias, String email) throws SQLException, NamingException {
+
+		if (alias == null || alias.length() == 0) {
+			throw new IllegalArgumentException("Invalid alias");
 		}
 
-		EmailValidator validator = EmailValidator.getInstance();
-		if (!validator.isValid(email)) {
-			throw new Exception("Invalid parameters");
+		if (!EmailValidator.getInstance().isValid(email)) {
+			throw new IllegalArgumentException("Invalid email");
 		}
 
 		String query = "insert into wh_user (alias, email, token, tokentimestamp) values(?, ?, MD5(random()::text), now()) returning uid, token";
@@ -237,13 +237,11 @@ public class UserDao {
 				}
 			}
 			return uid;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	public static void update(long uid, String alias, String password, int type, int status, int flag)
-			throws Exception {
+			throws SQLException, NamingException {
 		StringBuilder queryBuilder = new StringBuilder();
 		int params = 0;
 
@@ -281,7 +279,7 @@ public class UserDao {
 		queryBuilder.append(" where uid=?");
 
 		if (params == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		try (Connection conn = DataSourceProvider.get().getConnection();
@@ -309,15 +307,13 @@ public class UserDao {
 
 			ps.setLong(index, uid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void activate(String context, String challenge, String secret) throws Exception {
+	public static void activate(String context, String challenge, String secret) throws SQLException, NamingException {
 		if (context == null || context.length() == 0 || challenge == null || challenge.length() == 0 || secret == null
 				|| secret.length() == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		String query = "update wh_user set modifiedon= now(), password=crypt(? , gen_salt('bf')), status= 1 where email=? and token=? and (status=0 or status=1) and now() < tokentimestamp + interval '900 seconds'";
@@ -330,19 +326,17 @@ public class UserDao {
 				IotApplication.sendEmail(context, "Wanhive IoT platform: Account activated",
 						"Your account has been activated.");
 			} else {
-				throw new Exception("Update denied");
+				throw new NotFoundException("Not found");
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	/*
 	 * Generate a challenge for the given user.
 	 */
-	public static void generateChallenge(String email) throws Exception {
+	public static void generateChallenge(String email) throws SQLException, NamingException {
 		if (email == null || email.length() == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		String query = "update wh_user set token=MD5(random()::text), tokentimestamp=now() where email=? returning token";
@@ -356,14 +350,13 @@ public class UserDao {
 							"Your security token (valid for 15 minutes): " + rs.getString(1));
 				}
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void changePassword(long userUid, String oldPassword, String password) throws Exception {
+	public static void changePassword(long userUid, String oldPassword, String password)
+			throws SQLException, NamingException {
 		if (oldPassword == null || oldPassword.length() == 0 || password == null || password.length() == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		String query = "update wh_user set modifiedon= now(), password=crypt(? , gen_salt('bf')) where uid=? and password = crypt(?, password)";
@@ -375,17 +368,15 @@ public class UserDao {
 			if (ps.executeUpdate() > 0) {
 				return;
 			} else {
-				throw new Exception("Update denied");
+				throw new NotFoundException("Not found");
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	/*
 	 * Generates a new token string for the given user UID
 	 */
-	public static String generateToken(long uid) throws Exception {
+	public static String generateToken(long uid) throws SQLException, NamingException {
 		String query = "insert into wh_user_token (uid, token) values (?, ?) on conflict(uid) do update set token = ?, modifiedon=now()";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
@@ -396,46 +387,35 @@ public class UserDao {
 			ps.setString(3, token);
 			ps.executeUpdate();
 			return token;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	/*
 	 * Deletes existing token associated with the given user UID
 	 */
-	public static void removeToken(long uid) throws Exception {
+	public static void removeToken(long uid) throws SQLException, NamingException {
 		String query = "delete from wh_user_token where uid=?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
 			ps.setLong(1, uid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	/*
 	 * Deletes all the existing tokens
 	 */
-	public static void purgeTokens() throws Exception {
+	public static void purgeTokens() throws SQLException, NamingException {
 		String query = "truncate wh_user_token";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	/*
-	 * Authenticate against a database, LDAP, file or whatever. Issue a token (can
-	 * be a random String persisted to a database or a JWT token). The issued token
-	 * must be associated to a user. Return the issued token.
-	 */
-	public static User verifyUser(String email, String password) throws Exception {
+	public static User verifyUser(String email, String password) throws SQLException, NamingException {
 		if (email == null || email.length() == 0 || password == null || password.length() == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		// Status: not activated (0), active(1), deactivated(2)
@@ -463,19 +443,14 @@ public class UserDao {
 				user.setToken(generateToken(user.getUid()));
 				return user;
 			} else {
-				throw new Exception("Not found");
+				throw new NotFoundException("Not found");
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	/*
-	 * Returns details of the user associated with the given token.
-	 */
-	public static User verifyToken(String token) throws Exception {
+	public static User verifyToken(String token) throws SQLException, NamingException {
 		if (token == null || token.length() == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid token");
 		}
 
 		String query = "update wh_user_token set usedon=now() from wh_user where wh_user_token.token = ? and wh_user.uid=wh_user_token.uid and wh_user.status=1 and now() > wh_user_token.usedon + interval '50 milliseconds' and now() < wh_user_token.modifiedon + interval '1 hour' returning wh_user.uid, wh_user.type";
@@ -494,10 +469,8 @@ public class UserDao {
 			if (user != null) {
 				return user;
 			} else {
-				throw new Exception("Not found");
+				throw new NotFoundException("Not found");
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 }

@@ -3,9 +3,13 @@ package com.wanhive.iot.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.NamingException;
+import javax.ws.rs.NotFoundException;
 
 import com.wanhive.iot.Constants;
 import com.wanhive.iot.bean.Domain;
@@ -14,10 +18,12 @@ import com.wanhive.iot.provider.DataSourceProvider;
 
 public class DomainDao {
 
-	public static PagedList list(long userUid, long limit, long offset, String order, String orderBy) throws Exception {
+	public static PagedList list(long userUid, long limit, long offset, String order, String orderBy)
+			throws SQLException, NamingException {
 		if (limit > Constants.getMaxItemsInList()) {
-			throw new Exception("Invalid parameter");
+			throw new IllegalArgumentException("Invalid limit");
 		}
+
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select uid, createdon, modifiedon, name, description, type, status, flag, count(*) over() as totalrecords from wh_domain where useruid=?");
@@ -60,19 +66,20 @@ public class DomainDao {
 			pl.setRecordsFiltered(list.size());
 			pl.setData(list);
 			return pl;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	public static PagedList search(long userUid, String keyword, long limit, long offset, String order, String orderBy)
-			throws Exception {
-		if (limit > Constants.getMaxItemsInList() || keyword == null || keyword.length() < 3) {
-			throw new Exception("Invalid parameter");
-		} else {
-			keyword = "%" + keyword.toLowerCase() + "%";
+			throws SQLException, NamingException {
+		if (limit > Constants.getMaxItemsInList()) {
+			throw new IllegalArgumentException("Invalid limit");
 		}
 
+		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()) {
+			throw new IllegalArgumentException("Invalid keyword");
+		}
+
+		keyword = "%" + keyword.toLowerCase() + "%";
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select uid, createdon, modifiedon, name, description, type, status, flag, count(*) over() as totalrecords from wh_domain where useruid=? and (lower(name) like ? or lower(description) like ?) ");
@@ -118,12 +125,10 @@ public class DomainDao {
 			pl.setRecordsFiltered(list.size());
 			pl.setData(list);
 			return pl;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static long count(long userUid) throws Exception {
+	public static long count(long userUid) throws SQLException, NamingException {
 		long count = 0;
 		String query = "select count(uid) from wh_domain where useruid=?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
@@ -135,12 +140,10 @@ public class DomainDao {
 				}
 			}
 			return count;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static Domain info(long userUid, long uid) throws Exception {
+	public static Domain info(long userUid, long uid) throws SQLException, NamingException {
 		String query = "select uid, createdon, modifiedon, name, description, type, status, flag from wh_domain where uid = ? and userUid=?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
@@ -163,14 +166,12 @@ public class DomainDao {
 			if (domain != null) {
 				return domain;
 			} else {
-				throw new Exception("Not found");
+				throw new NotFoundException("Not found");
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static long create(long userUid, String name, String description) throws Exception {
+	public static long create(long userUid, String name, String description) throws SQLException, NamingException {
 		String query = "insert into wh_domain (useruid, name, description) values(?, ?, ?) returning uid";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
@@ -185,12 +186,11 @@ public class DomainDao {
 				}
 			}
 			return uid;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void update(long userUid, long uid, String name, String description) throws Exception {
+	public static void update(long userUid, long uid, String name, String description)
+			throws SQLException, NamingException {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("update wh_domain set modifiedon= now(),");
 		int params = 0;
@@ -207,7 +207,7 @@ public class DomainDao {
 		queryBuilder.append(" where uid=? and useruid=?");
 
 		if (params == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		try (Connection conn = DataSourceProvider.get().getConnection();
@@ -223,31 +223,25 @@ public class DomainDao {
 			ps.setLong(index++, uid);
 			ps.setLong(index, userUid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void delete(long userUid, long uid) throws Exception {
+	public static void delete(long userUid, long uid) throws SQLException, NamingException {
 		String query = "delete from wh_domain where uid=? and useruid=?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
 			ps.setLong(1, uid);
 			ps.setLong(2, userUid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void purge(long userUid) throws Exception {
+	public static void purge(long userUid) throws SQLException, NamingException {
 		String query = "delete from wh_domain where useruid=?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
 			ps.setLong(1, userUid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 }

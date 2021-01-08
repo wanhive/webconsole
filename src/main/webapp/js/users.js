@@ -498,7 +498,7 @@ $(document).ready(function() {
 	});
 
 	$("#purge-tokens").on("click", function() {
-		if (confirm("Delete all the existing bearer tokens from the system?") == true) {
+		if (confirm("Delete all the existing bearer tokens?") == true) {
 			purgeBearerTokens();
 		} else {
 			return;

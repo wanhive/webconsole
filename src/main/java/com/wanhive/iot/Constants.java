@@ -19,6 +19,7 @@ public class Constants {
 	private static int maxPasswordHashRounds;
 	private static int maxThingsPerDomain;
 	private static int maxItemsInList;
+	private static int minSearchKeywordLength;
 	private static ApplicationInfo appInfo;
 
 	static {
@@ -45,6 +46,7 @@ public class Constants {
 			maxPasswordHashRounds = Integer.parseInt(resource.getString("maxPasswordHashRounds"));
 			maxThingsPerDomain = Integer.parseInt(resource.getString("maxThingsPerDomain"));
 			maxItemsInList = Integer.parseInt(resource.getString("maxItemsInList"));
+			minSearchKeywordLength = Integer.parseInt(resource.getString("minSearchKeywordLength"));
 
 			/*
 			 * Populate application information bundle
@@ -75,7 +77,7 @@ public class Constants {
 	public static String getDataSourceName() {
 		return dataSourceName;
 	}
-	
+
 	public static String getEmailSessionName() {
 		return emailSessionName;
 	}
@@ -90,6 +92,10 @@ public class Constants {
 
 	public static int getMaxItemsInList() {
 		return maxItemsInList >= 0 ? maxItemsInList : 0;
+	}
+
+	public static int getMinSearchKeywordLength() {
+		return minSearchKeywordLength >= 0 ? minSearchKeywordLength : 0;
 	}
 
 	public static ApplicationInfo getInfo() {

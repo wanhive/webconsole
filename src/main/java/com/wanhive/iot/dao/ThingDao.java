@@ -4,9 +4,13 @@ import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.NamingException;
+import javax.ws.rs.NotFoundException;
 
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6CryptoParams;
@@ -18,10 +22,11 @@ import com.wanhive.iot.util.Agreement;
 
 public class ThingDao {
 	public static PagedList list(long userUid, long domainUid, long limit, long offset, String order, String orderBy)
-			throws Exception {
+			throws SQLException, NamingException {
 		if (limit > Constants.getMaxItemsInList()) {
-			throw new Exception("Invalid parameter");
+			throw new IllegalArgumentException("Invalid limit");
 		}
+		
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select wh_thing.uid, wh_thing.createdon, wh_thing.modifiedon, wh_thing.name, wh_thing.type, wh_thing.status, wh_thing.flag, count(*) over() as totalrecords "
@@ -66,19 +71,20 @@ public class ThingDao {
 			pl.setRecordsFiltered(list.size());
 			pl.setData(list);
 			return pl;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	public static PagedList search(long userUid, long domainUid, String keyword, long limit, long offset, String order,
-			String orderBy) throws Exception {
-		if (limit > Constants.getMaxItemsInList() || keyword == null || keyword.length() < 3) {
-			throw new Exception("Invalid parameters");
-		} else {
-			keyword = "%" + keyword.toLowerCase() + "%";
+			String orderBy) throws SQLException, NamingException {
+		if (limit > Constants.getMaxItemsInList()) {
+			throw new IllegalArgumentException("Invalid limit");
 		}
 
+		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()) {
+			throw new IllegalArgumentException("Invalid keyword");
+		}
+
+		keyword = "%" + keyword.toLowerCase() + "%";
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select wh_thing.uid, wh_thing.createdon, wh_thing.modifiedon, wh_thing.name, wh_thing.type, wh_thing.status, wh_thing.flag, count(*) over() as totalrecords "
@@ -125,12 +131,10 @@ public class ThingDao {
 			pl.setRecordsFiltered(list.size());
 			pl.setData(list);
 			return pl;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static long count(long userUid, long domainUid) throws Exception {
+	public static long count(long userUid, long domainUid) throws SQLException, NamingException {
 		String query = "select count(wh_thing.uid) from wh_thing, wh_domain where wh_thing.domainuid=? and wh_domain.uid = wh_thing.domainuid and wh_domain.useruid= ?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
@@ -144,12 +148,10 @@ public class ThingDao {
 				}
 			}
 			return count;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static long count(long userUid) throws Exception {
+	public static long count(long userUid) throws SQLException, NamingException {
 		String query = "select count(wh_thing.uid) from wh_thing where wh_thing.domainuid in (select wh_domain.uid from wh_domain where wh_domain.useruid=?)";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
@@ -162,12 +164,10 @@ public class ThingDao {
 				}
 			}
 			return count;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static Thing info(long userUid, long uid) throws Exception {
+	public static Thing info(long userUid, long uid) throws SQLException, NamingException {
 		String query = "select wh_thing.uid, wh_thing.createdon, wh_thing.modifiedon, wh_thing.name, wh_thing.type, wh_thing.status, wh_thing.flag "
 				+ "from wh_thing, wh_domain where wh_thing.uid = ? and wh_domain.uid = wh_thing.domainuid and wh_domain.useruid= ?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
@@ -191,16 +191,15 @@ public class ThingDao {
 			if (thing != null) {
 				return thing;
 			} else {
-				throw new Exception("Not found");
+				throw new NotFoundException("Not found");
 			}
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static long create(long userUid, long domainUid, String name, int type) throws Exception {
+	public static long create(long userUid, long domainUid, String name, int type)
+			throws SQLException, NamingException {
 		if (Constants.getMaxThingsPerDomain() <= 0) {
-			throw new Exception("Invalid application settings");
+			throw new IllegalStateException("Invalid application settings");
 		}
 
 		if (type < 0) {
@@ -229,13 +228,11 @@ public class ThingDao {
 				}
 			}
 			return uid;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
 	public static void update(long userUid, long uid, String name, int type, String salt, String verifier)
-			throws Exception {
+			throws SQLException, NamingException {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("update wh_thing set modifiedon= now(),");
 		int params = 0;
@@ -265,7 +262,7 @@ public class ThingDao {
 				" from wh_domain where wh_domain.uid = wh_thing.domainuid and wh_domain.useruid=? and wh_thing.uid = ?");
 
 		if (params == 0) {
-			throw new Exception("Invalid parameters");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		try (Connection conn = DataSourceProvider.get().getConnection();
@@ -287,14 +284,13 @@ public class ThingDao {
 			ps.setLong(index, uid);
 			ps.executeUpdate();
 
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void updateVerifier(long userUid, String uid, int rounds, String password) throws Exception {
+	public static void updateVerifier(long userUid, String uid, int rounds, String password)
+			throws SQLException, NamingException {
 		if (password == null || rounds < 0 || rounds > Constants.getMaxPasswordHashRounds()) {
-			throw new Exception("Invalid parameter");
+			throw new IllegalArgumentException("Invalid parameters");
 		}
 
 		String query = "update wh_thing set modifiedon= now(), salt= ?, verifier= ? from wh_domain where wh_domain.uid = wh_thing.domainuid and wh_domain.useruid=? and wh_thing.uid = ?";
@@ -313,13 +309,10 @@ public class ThingDao {
 			ps.setLong(4, Long.parseLong(uid));
 
 			ps.executeUpdate();
-
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void delete(long userUid, long uid) throws Exception {
+	public static void delete(long userUid, long uid) throws SQLException, NamingException {
 		String query = "delete from wh_thing where uid = ? and "
 				+ "exists(select wh_thing.uid from wh_thing, wh_domain where "
 				+ "wh_thing.uid=? and wh_domain.uid=wh_thing.domainuid and wh_domain.useruid=?)";
@@ -329,12 +322,10 @@ public class ThingDao {
 			ps.setLong(2, uid);
 			ps.setLong(3, userUid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void purge(long userUid, long domainUid) throws Exception {
+	public static void purge(long userUid, long domainUid) throws SQLException, NamingException {
 		String query = "delete from wh_thing where domainuid = ? and exists(select wh_domain.uid from wh_domain where wh_domain.uid=? and wh_domain.useruid=?)";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
@@ -342,19 +333,15 @@ public class ThingDao {
 			ps.setLong(2, domainUid);
 			ps.setLong(3, userUid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
-	public static void purge(long userUid) throws Exception {
+	public static void purge(long userUid) throws SQLException, NamingException {
 		String query = "delete from wh_thing where domainuid in (select wh_domain.uid from wh_domain where wh_domain.useruid=?)";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
 			ps.setLong(1, userUid);
 			ps.executeUpdate();
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 }

@@ -40,7 +40,6 @@ public class AdminResource {
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy,
 			@DefaultValue("-1") @QueryParam("type") int type, @DefaultValue("-1") @QueryParam("status") int status) {
-
 		try {
 			return Response.ok(UserDao.list(limit, offset, order, orderBy, type, status)).build();
 		} catch (Exception e) {
