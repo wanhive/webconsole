@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.naming.NamingException;
-import javax.ws.rs.NotFoundException;
 
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6CryptoParams;
@@ -191,7 +191,7 @@ public class ThingDao {
 			if (thing != null) {
 				return thing;
 			} else {
-				throw new NotFoundException("Not found");
+				throw new NoSuchElementException("Not found");
 			}
 		}
 	}

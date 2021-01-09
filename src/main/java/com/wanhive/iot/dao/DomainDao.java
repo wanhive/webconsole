@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.naming.NamingException;
-import javax.ws.rs.NotFoundException;
 
 import com.wanhive.iot.Constants;
 import com.wanhive.iot.bean.Domain;
@@ -166,7 +166,7 @@ public class DomainDao {
 			if (domain != null) {
 				return domain;
 			} else {
-				throw new NotFoundException("Not found");
+				throw new NoSuchElementException("Not found");
 			}
 		}
 	}

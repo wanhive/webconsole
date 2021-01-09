@@ -1,5 +1,7 @@
 package com.wanhive.iot;
 
+import java.util.logging.Logger;
+
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,6 +17,7 @@ public class UncaughtException extends Throwable implements ExceptionMapper<Thro
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response toResponse(Throwable error) {
+		Logger.getGlobal().warning(error.getMessage());
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
 	}
 }

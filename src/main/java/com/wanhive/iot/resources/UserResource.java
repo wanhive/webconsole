@@ -3,6 +3,7 @@ package com.wanhive.iot.resources;
 import java.security.Principal;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -43,32 +44,24 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(@FormParam("alias") String alias, @FormParam("email") String email,
-			@FormParam("captcha") String captcha) {
-		if (!Constants.isSignUpAllowed() || !IotApplication.verifyCaptcha(captcha)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
-		}
-
-		try {
+			@FormParam("captcha") String captcha) throws Exception {
+		if (Constants.isSignUpAllowed() && IotApplication.verifyCaptcha(captcha)) {
 			UserDao.create(alias, email);
 			return Response.ok().build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
+		} else {
+			throw new ForbiddenException();
 		}
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response create(User user) {
-		if (!Constants.isSignUpAllowed() || !IotApplication.verifyCaptcha(user.getCaptcha())) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
-		}
-
-		try {
+	public Response create(User user) throws Exception {
+		if (Constants.isSignUpAllowed() && IotApplication.verifyCaptcha(user.getCaptcha())) {
 			UserDao.create(user.getAlias(), user.getEmail());
 			return Response.ok().build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
+		} else {
+			throw new ForbiddenException();
 		}
 	}
 
@@ -77,16 +70,12 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response activate(@FormParam("context") String context, @FormParam("challenge") String challenge,
-			@FormParam("secret") String secret, @FormParam("captcha") String captcha) {
-		if (!IotApplication.verifyCaptcha(captcha)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
-		}
-
-		try {
+			@FormParam("secret") String secret, @FormParam("captcha") String captcha) throws Exception {
+		if (IotApplication.verifyCaptcha(captcha)) {
 			UserDao.activate(context, challenge, secret);
 			return Response.ok().build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
+		} else {
+			throw new ForbiddenException();
 		}
 	}
 
@@ -94,31 +83,25 @@ public class UserResource {
 	@Path("activate")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response activate(Challenge challenge) {
-		if (!IotApplication.verifyCaptcha(challenge.getCaptcha())) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
-		}
-
-		try {
+	public Response activate(Challenge challenge) throws Exception {
+		if (IotApplication.verifyCaptcha(challenge.getCaptcha())) {
 			UserDao.activate(challenge.getContext(), challenge.getChallenge(), challenge.getSecret());
 			return Response.ok().build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
+		} else {
+			throw new ForbiddenException();
 		}
 	}
 
 	@GET
 	@Path("challenge")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getChallenge(@QueryParam("email") String email, @QueryParam("captcha") String captcha) {
-		if (!IotApplication.verifyCaptcha(captcha)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(StatusMessage.DENIED).build();
-		}
-		try {
+	public Response getChallenge(@QueryParam("email") String email, @QueryParam("captcha") String captcha)
+			throws Exception {
+		if (IotApplication.verifyCaptcha(captcha)) {
 			UserDao.generateChallenge(email);
 			return Response.ok().build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
+		} else {
+			throw new ForbiddenException();
 		}
 	}
 
@@ -127,14 +110,10 @@ public class UserResource {
 	@Path("changepassword")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response changePassword(@FormParam("oldPassword") String oldPassword,
-			@FormParam("password") String password) {
-		try {
-			UserDao.changePassword(getUserUid(), oldPassword, password);
-			return Response.ok().build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response changePassword(@FormParam("oldPassword") String oldPassword, @FormParam("password") String password)
+			throws Exception {
+		UserDao.changePassword(getUserUid(), oldPassword, password);
+		return Response.ok().build();
 	}
 
 	@POST
@@ -142,25 +121,17 @@ public class UserResource {
 	@Path("changepassword")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response changePassword(User user) {
-		try {
-			UserDao.changePassword(getUserUid(), user.getOldPassword(), user.getPassword());
-			return Response.ok().build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response changePassword(User user) throws Exception {
+		UserDao.changePassword(getUserUid(), user.getOldPassword(), user.getPassword());
+		return Response.ok().build();
 	}
 
 	@DELETE
 	@Path("token")
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteToken() {
-		try {
-			UserDao.removeToken(getUserUid());
-			return Response.ok(StatusMessage.DELETED).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response deleteToken() throws Exception {
+		UserDao.removeToken(getUserUid());
+		return Response.ok(StatusMessage.DELETED).build();
 	}
 }

@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 import javax.naming.NamingException;
-import javax.ws.rs.NotFoundException;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -207,7 +207,7 @@ public class UserDao {
 			if (subject != null) {
 				return subject;
 			} else {
-				throw new NotFoundException("Not found");
+				throw new NoSuchElementException("Not found");
 			}
 		}
 	}
@@ -326,7 +326,7 @@ public class UserDao {
 				IotApplication.sendEmail(context, "Wanhive IoT platform: Account activated",
 						"Your account has been activated.");
 			} else {
-				throw new NotFoundException("Not found");
+				throw new NoSuchElementException("Not found");
 			}
 		}
 	}
@@ -368,7 +368,7 @@ public class UserDao {
 			if (ps.executeUpdate() > 0) {
 				return;
 			} else {
-				throw new NotFoundException("Not found");
+				throw new NoSuchElementException("Not found");
 			}
 		}
 	}
@@ -443,7 +443,7 @@ public class UserDao {
 				user.setToken(generateToken(user.getUid()));
 				return user;
 			} else {
-				throw new NotFoundException("Not found");
+				throw new NoSuchElementException("Not found");
 			}
 		}
 	}
@@ -469,7 +469,7 @@ public class UserDao {
 			if (user != null) {
 				return user;
 			} else {
-				throw new NotFoundException("Not found");
+				throw new NoSuchElementException("Not found");
 			}
 		}
 	}

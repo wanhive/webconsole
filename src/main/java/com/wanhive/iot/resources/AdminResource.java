@@ -39,12 +39,9 @@ public class AdminResource {
 			@DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy,
-			@DefaultValue("-1") @QueryParam("type") int type, @DefaultValue("-1") @QueryParam("status") int status) {
-		try {
-			return Response.ok(UserDao.list(limit, offset, order, orderBy, type, status)).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+			@DefaultValue("-1") @QueryParam("type") int type, @DefaultValue("-1") @QueryParam("status") int status)
+			throws Exception {
+		return Response.ok(UserDao.list(limit, offset, order, orderBy, type, status)).build();
 	}
 
 	@GET
@@ -55,36 +52,25 @@ public class AdminResource {
 			@DefaultValue("256") @QueryParam("limit") long limit, @DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy,
-			@DefaultValue("-1") @QueryParam("type") int type, @DefaultValue("-1") @QueryParam("status") int status) {
-		try {
-			return Response.ok(UserDao.search(keyword, limit, offset, order, orderBy, type, status)).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+			@DefaultValue("-1") @QueryParam("type") int type, @DefaultValue("-1") @QueryParam("status") int status)
+			throws Exception {
+		return Response.ok(UserDao.search(keyword, limit, offset, order, orderBy, type, status)).build();
 	}
 
 	@GET
 	@Path("user/count")
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response countUsers() {
-		try {
-			return Response.ok(UserDao.count()).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response countUsers() throws Exception {
+		return Response.ok(UserDao.count()).build();
 	}
 
 	@GET
 	@Path("user/{uid}")
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUserInfo(@PathParam("uid") long uid) {
-		try {
-			return Response.ok(UserDao.info(uid)).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response getUserInfo(@PathParam("uid") long uid) throws Exception {
+		return Response.ok(UserDao.info(uid)).build();
 	}
 
 	@POST
@@ -92,12 +78,8 @@ public class AdminResource {
 	@Secured({ Role.ADMINISTRATOR })
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createUser(@FormParam("alias") String alias, @FormParam("email") String email) {
-		try {
-			return Response.ok(UserDao.create(alias, email)).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response createUser(@FormParam("alias") String alias, @FormParam("email") String email) throws Exception {
+		return Response.ok(UserDao.create(alias, email)).build();
 	}
 
 	@POST
@@ -105,12 +87,8 @@ public class AdminResource {
 	@Secured({ Role.ADMINISTRATOR })
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createUser(User user) {
-		try {
-			return Response.ok(UserDao.create(user.getAlias(), user.getEmail())).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response createUser(User user) throws Exception {
+		return Response.ok(UserDao.create(user.getAlias(), user.getEmail())).build();
 	}
 
 	@PUT
@@ -120,13 +98,10 @@ public class AdminResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateUser(@PathParam("uid") long uid, @FormParam("alias") String alias,
 			@FormParam("password") String password, @DefaultValue("-1") @FormParam("type") int type,
-			@DefaultValue("-1") @FormParam("status") int status, @DefaultValue("-1") @FormParam("flag") int flag) {
-		try {
-			UserDao.update(uid, alias, password, type, status, flag);
-			return Response.ok(StatusMessage.UPDATED).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+			@DefaultValue("-1") @FormParam("status") int status, @DefaultValue("-1") @FormParam("flag") int flag)
+			throws Exception {
+		UserDao.update(uid, alias, password, type, status, flag);
+		return Response.ok(StatusMessage.UPDATED).build();
 	}
 
 	@PUT
@@ -134,64 +109,44 @@ public class AdminResource {
 	@Secured({ Role.ADMINISTRATOR })
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUser(@PathParam("uid") long uid, User user) {
-		try {
-			UserDao.update(uid, user.getAlias(), user.getPassword(), user.getType(), user.getStatus(), user.getFlag());
-			return Response.ok(StatusMessage.UPDATED).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response updateUser(@PathParam("uid") long uid, User user) throws Exception {
+		UserDao.update(uid, user.getAlias(), user.getPassword(), user.getType(), user.getStatus(), user.getFlag());
+		return Response.ok(StatusMessage.UPDATED).build();
 	}
 
 	@DELETE
 	@Path("user/token/{uid}")
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteToken(@PathParam("uid") long uid) {
-		try {
-			UserDao.removeToken(uid);
-			return Response.ok(StatusMessage.DELETED).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response deleteToken(@PathParam("uid") long uid) throws Exception {
+		UserDao.removeToken(uid);
+		return Response.ok(StatusMessage.DELETED).build();
 	}
 
 	@DELETE
 	@Path("user/tokens")
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response purgeTokens() {
-		try {
-			UserDao.purgeTokens();
-			return Response.ok(StatusMessage.DELETED).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response purgeTokens() throws Exception {
+		UserDao.purgeTokens();
+		return Response.ok(StatusMessage.DELETED).build();
 	}
 
 	@DELETE
 	@Path("user/domains/{uid}")
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response purgeDomains(@PathParam("uid") long uid) {
-		try {
-			DomainDao.purge(uid);
-			return Response.ok(StatusMessage.DELETED).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response purgeDomains(@PathParam("uid") long uid) throws Exception {
+		DomainDao.purge(uid);
+		return Response.ok(StatusMessage.DELETED).build();
 	}
 
 	@DELETE
 	@Path("user/things/{uid}")
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response purgeThings(@PathParam("uid") long uid) {
-		try {
-			ThingDao.purge(uid);
-			return Response.ok(StatusMessage.DELETED).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(StatusMessage.DENIED).build();
-		}
+	public Response purgeThings(@PathParam("uid") long uid) throws Exception {
+		ThingDao.purge(uid);
+		return Response.ok(StatusMessage.DELETED).build();
 	}
 }
