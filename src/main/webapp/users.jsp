@@ -1,3 +1,4 @@
+<%@page import="com.wanhive.iot.Constants"%>
 <%@page import="com.wanhive.iot.util.Role"%>
 <%@page import="com.wanhive.iot.bean.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -35,6 +36,9 @@ if (session == null || session.getAttribute("user") == null) {
 <script type="text/javascript" src="widget/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	var authorizationToken = '<jsp:getProperty name="user" property="token" />';
+	var minSearchKeywordLength =
+<%=Constants.getMinSearchKeywordLength()%>
+	;
 </script>
 <script type="text/javascript" src="js/navbar.js"></script>
 <script type="text/javascript" src="js/users.js"></script>

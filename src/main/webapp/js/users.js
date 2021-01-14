@@ -465,8 +465,8 @@ $(document).ready(function() {
 
 	$("#search-users").on("click", function() {
 		if (searchKeyword.val() == null
-			|| searchKeyword.val().length < 4) {
-			alert("Keyword is too short");
+			|| searchKeyword.val().length < minSearchKeywordLength) {
+			alert("Search keyword should be at least " + minSearchKeywordLength + " characters long.");
 			return;
 		} else {
 			// Activate the search

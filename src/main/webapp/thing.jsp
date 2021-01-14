@@ -45,6 +45,9 @@ try {
 	var maxThingsPerDomain =
 <%=Constants.getMaxThingsPerDomain()%>
 	;
+	var minSearchKeywordLength =
+<%=Constants.getMinSearchKeywordLength()%>
+	;
 </script>
 <script type="text/javascript" src="js/navbar.js"></script>
 <script type="text/javascript" src="js/thing.js"></script>
