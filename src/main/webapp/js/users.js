@@ -343,9 +343,13 @@ $(document).ready(function() {
 					+ '</td><td>'
 					+ json.data[i].uid
 					+ '</td><td>'
-					+ json.data[i].alias
-					+ '</td><td>'
 					+ json.data[i].email
+					+ '</td><td class="wh-collapsable">'
+					+ json.data[i].alias
+					+ '</td><td class="wh-collapsable">'
+					+ typeCodeToText(json.data[i].type)
+					+ '</td><td class="wh-collapsable">'
+					+ statusCodeToText(json.data[i].status)
 					+ '</td><td>'
 					+ '<time class="timeago" datetime="'
 					+ json.data[i].createdOn
@@ -354,10 +358,6 @@ $(document).ready(function() {
 					+ '">'
 					+ json.data[i].createdOn
 					+ '</time>'
-					+ '</td><td>'
-					+ typeCodeToText(json.data[i].type)
-					+ '</td><td>'
-					+ statusCodeToText(json.data[i].status)
 					+ '</td><td><span style="white-space: nowrap;">'
 					+ '<button class="btn-modify" title="Modify"><i class="fa fa-edit"></i></button>&nbsp;'
 					+ '</span></td></tr>');
@@ -483,15 +483,15 @@ $(document).ready(function() {
 		userUid.val(currentRow.find('td:eq(1)')
 			.text());
 		userType.val(typeTextToCode(currentRow
-			.find('td:eq(5)').text()));
+			.find('td:eq(4)').text()));
 		userStatus
 			.val(statusTextToCode(currentRow
-				.find('td:eq(6)')
+				.find('td:eq(5)')
 				.text()));
 		$("span.ui-dialog-title").text(
 			'Update user '
 			+ currentRow.find(
-				'td:eq(3)')
+				'td:eq(2)')
 				.text());
 		updateTips("Password field is optional.");
 		updateDialog.dialog("open");

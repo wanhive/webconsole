@@ -152,13 +152,13 @@ if (session == null || session.getAttribute("user") == null) {
 						<th width="5%">SN</th>
 						<th width="18%" id="uidCol" style="cursor: pointer;">Identifier&nbsp;<i
 							class="order-caret fa fa-caret-down"></i></th>
-						<th width="18%">Alias</th>
 						<th width="18%" id="emailCol" style="cursor: pointer;">Email&nbsp;<i
 							class="order-caret fa"></i></th>
+						<th width="18%" class="wh-collapsable">Alias</th>
+						<th width="10%" class="wh-collapsable">Type</th>
+						<th width="8%" class="wh-collapsable">Status</th>
 						<th width="15%" id="createdOnCol" style="cursor: pointer;">Created&nbsp;<i
 							class="order-caret fa"></i></th>
-						<th width="10%">Type</th>
-						<th width="8%">Status</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -166,9 +166,10 @@ if (session == null || session.getAttribute("user") == null) {
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="6"><span id="offsetFrom"></span>&nbsp;to&nbsp;<span
+						<td colspan="3"><span id="offsetFrom"></span>&nbsp;to&nbsp;<span
 							id="offsetTo"></span>&nbsp;of&nbsp;<span id="totalRecords"></span>
 						</td>
+						<td  colspan="3" class="wh-collapsable"></td>
 						<td colspan="2"><span style="white-space: nowrap;"><a
 								id="previousPage" style="font-weight: bold; cursor: pointer;">Previous</a>
 								&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a id="nextPage"

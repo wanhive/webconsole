@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Declare the minimum search keyword length in the application's settings.
+- Responsive data table that hides columns for mobile view.
+- Minimum search keyword length in the application's settings.
 
 ### Changed
 

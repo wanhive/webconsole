@@ -363,7 +363,7 @@ $(document).ready(function() {
 					+ json.data[i].uid
 					+ '</td><td>'
 					+ json.data[i].name
-					+ '</td><td>'
+					+ '</td><td class="wh-collapsable">'
 					+ typeCodeToText(json.data[i].type)
 					+ '</td><td>'
 					+ '<time class="timeago" datetime="'

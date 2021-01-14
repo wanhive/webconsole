@@ -278,4 +278,7 @@ header {
 	.left {
 		display: none;
 	}
+	.wh-collapsable {
+		display: none;
+	}
 }

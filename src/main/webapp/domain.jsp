@@ -115,7 +115,7 @@ if (session == null || session.getAttribute("user") == null) {
 							class="order-caret fa fa-caret-down"></i></th>
 						<th width="20%" id="nameCol" style="cursor: pointer;">Name&nbsp;<i
 							class="order-caret fa"></i></th>
-						<th width="35%">Description</th>
+						<th width="35%" class="wh-collapsable">Description</th>
 						<th width="12%" id="createdOnCol" style="cursor: pointer;">Created&nbsp;<i
 							class="order-caret fa"></i></th>
 						<th>Action</th>
@@ -125,9 +125,10 @@ if (session == null || session.getAttribute("user") == null) {
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="4"><span id="offsetFrom"></span>&nbsp;to&nbsp;<span
+						<td colspan="3"><span id="offsetFrom"></span>&nbsp;to&nbsp;<span
 							id="offsetTo"></span>&nbsp;of&nbsp;<span id="totalRecords"></span>
 						</td>
+						<td class="wh-collapsable"></td>
 						<td colspan="2"><span style="white-space: nowrap;"><a
 								id="previousPage" style="font-weight: bold; cursor: pointer;">Previous</a>
 								&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a id="nextPage"

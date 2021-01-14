@@ -255,7 +255,7 @@ $(document).ready(function() {
 					+ json.data[i].uid
 					+ '</td><td>'
 					+ json.data[i].name
-					+ '</td><td>'
+					+ '</td><td class="wh-collapsable">'
 					+ json.data[i].description
 					+ '</td><td>'
 					+ '<time class="timeago" datetime="'
