@@ -28,7 +28,7 @@
 			<fieldset>
 				<legend>Activate account</legend>
 				<input type="email" name="context" required="required"
-					autofocus="autofocus" placeholder="Email Address"><br>
+					autofocus="autofocus" placeholder="Email address"><br>
 				<input type="text" name="challenge" required="required"
 					placeholder="Security token"><br> <input
 					type="password" name="secret" id="secret" required="required"

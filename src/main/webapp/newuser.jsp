@@ -46,7 +46,7 @@ if (!Constants.isSignUpAllowed()) {
 			<fieldset>
 				<legend>Create account</legend>
 				<input type="email" name="email" id="email" required="required"
-					autofocus="autofocus" placeholder="Email Address"><br>
+					autofocus="autofocus" placeholder="Email address"><br>
 				<input type="text" name="alias" id="alias" required="required"
 					placeholder="Alias"> <br> <span><input
 					type="checkbox" name="agreement" value="agree" id="agreement">I

@@ -39,7 +39,7 @@
 			<fieldset>
 				<legend>Enter your email address</legend>
 				<input type="email" name="email" id="email" required="required"
-					autofocus="autofocus" placeholder="Email Address"><br>
+					autofocus="autofocus" placeholder="Email address"><br>
 				<input type="hidden" name="captcha" id="recaptcha-response">
 				<input type="submit" name="submit" value="Generate token">
 			</fieldset>
