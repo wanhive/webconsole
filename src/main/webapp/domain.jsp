@@ -129,12 +129,8 @@ if (session == null || session.getAttribute("user") == null) {
 							id="offsetTo"></span>&nbsp;of&nbsp;<span id="totalRecords"></span>
 						</td>
 						<td class="wh-collapsable"></td>
-						<td colspan="2"><span style="white-space: nowrap;"><a
-								id="previousPage" style="font-weight: bold; cursor: pointer;">Previous</a>
-								&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a id="nextPage"
-								style="font-weight: bold; cursor: pointer;">Next</a></span>
-							&nbsp;&nbsp;&nbsp; <input type="number" id="pageCounter"
-							value="1"></td>
+						<td colspan="2"><jsp:include page="include/paginator.jsp"></jsp:include>
+						</td>
 					</tr>
 				</tfoot>
 			</table>
