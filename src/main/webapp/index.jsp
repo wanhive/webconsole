@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	request.getSession().invalidate();
+request.getSession().invalidate();
 %>
 <!DOCTYPE html>
 <html>
@@ -32,15 +32,16 @@
 			</fieldset>
 		</form>
 		<p>
+			<a href="recover.jsp" style="color: #3498db; font-weight: bolder;">Forgot
+				password?</a>
+				</p>
 			<%
-				if (Constants.isSignUpAllowed()) {
+			if (Constants.isSignUpAllowed()) {
 			%>
-			<a href="newuser.jsp">Create account</a>
+			<p style="color: #999">Don't have an account? <a href="newuser.jsp" style="font-weight: bolder; color: #555">Sign up here</a></p>
 			<%
-				}
+			}
 			%>
-			<br> <a href="recover.jsp">Forgot password?</a>
-		</p>
 	</div>
 	<!-- FOOTER -->
 	<footer class="footer"><jsp:include page="include/footer.jsp"></jsp:include></footer>

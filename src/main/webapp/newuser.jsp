@@ -59,8 +59,11 @@ if (!Constants.isSignUpAllowed()) {
 		</form>
 		<!-- end sign up form -->
 		<p>
-			<a href="activate.jsp">Activate account</a><br> <a
-				href="index.jsp">Go to home page</a>
+			<a href="activate.jsp" style="color: #3498db; font-weight: bolder;">Activate
+				account</a>
+		</p>
+		<p>
+			<a href="index.jsp">Go to home page</a>
 		</p>
 	</div>
 	<!-- end wrap div -->
