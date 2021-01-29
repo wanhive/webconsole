@@ -363,7 +363,7 @@ $(document).ready(function() {
 					+ json.data[i].uid
 					+ '</td><td>'
 					+ json.data[i].name
-					+ '</td><td class="wh-collapsable">'
+					+ '</td><td>'
 					+ typeCodeToText(json.data[i].type)
 					+ '</td><td>'
 					+ '<time class="timeago" datetime="'
@@ -410,9 +410,9 @@ $(document).ready(function() {
 		$.ajax(settings).done(function(response) {
 			$("aside.right")
 				.html(
-					'<h2>'
+					'<h3>'
 					+ response.name
-					+ '</h2><p><em>'
+					+ '</h3><p><em>'
 					+ response.description
 					+ '</em></p>'
 					+ '<p><strong>Things limit:</strong> '
@@ -594,7 +594,7 @@ $(document).ready(function() {
 				.text());
 		confirmDialog.dialog("open");
 	});
-	
+
 	$("#dataTable").basictable({
 		breakpoint: 768
 	});

@@ -153,13 +153,13 @@ try {
 			<table id="dataTable" class="ui-widget ui-widget-content auto-index">
 				<thead>
 					<tr class="ui-widget-header">
-						<th width="5%">SN</th>
-						<th width="18%" id="uidCol" style="cursor: pointer;">Identifier&nbsp;<i
+						<th style="width: 5%;">SN</th>
+						<th id="uidCol" style="cursor: pointer; width: 15%;">Identifier&nbsp;<i
 							class="order-caret fa"></i></th>
-						<th width="40%" id="nameCol" style="cursor: pointer;">Name&nbsp;<i
+						<th id="nameCol" style="cursor: pointer; width: 40%;">Name&nbsp;<i
 							class="order-caret fa"></i></th>
-						<th width="10%" id="typeCol" class="wh-collapsable">Type</th>
-						<th width="15%" id="createdOnCol" style="cursor: pointer;">Created&nbsp;<i
+						<th width="10%" id="typeCol" style="width: 10%;">Type</th>
+						<th id="createdOnCol" style="cursor: pointer; width: 12%;">Created&nbsp;<i
 							class="order-caret fa fa-caret-down"></i></th>
 						<th>Action</th>
 					</tr>

@@ -255,7 +255,7 @@ $(document).ready(function() {
 					+ json.data[i].uid
 					+ '</td><td>'
 					+ json.data[i].name
-					+ '</td><td class="wh-collapsable">'
+					+ '</td><td>'
 					+ json.data[i].description
 					+ '</td><td>'
 					+ '<time class="timeago" datetime="'
@@ -409,7 +409,7 @@ $(document).ready(function() {
 				.text());
 		confirmDialog.dialog("open");
 	});
-	
+
 	$("#dataTable").basictable({
 		breakpoint: 768
 	});

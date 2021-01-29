@@ -153,15 +153,15 @@ if (session == null || session.getAttribute("user") == null) {
 			<table id="dataTable" class="ui-widget ui-widget-content auto-index">
 				<thead>
 					<tr class="ui-widget-header">
-						<th width="5%">SN</th>
-						<th width="12%" id="uidCol" style="cursor: pointer;">Identifier&nbsp;<i
+						<th style="width: 5%;">SN</th>
+						<th id="uidCol" style="cursor: pointer; width: 12%;">Identifier&nbsp;<i
 							class="order-caret fa fa-caret-down"></i></th>
-						<th width="24%" id="emailCol" style="cursor: pointer;">Email&nbsp;<i
+						<th id="emailCol" style="cursor: pointer; width: 370px;">Email&nbsp;<i
 							class="order-caret fa"></i></th>
-						<th width="18%" class="wh-collapsable">Alias</th>
-						<th width="10%" class="wh-collapsable">Type</th>
-						<th width="8%" class="wh-collapsable">Status</th>
-						<th width="15%" id="createdOnCol" style="cursor: pointer;">Created&nbsp;<i
+						<th class="wh-collapsable" style="width: 18%;">Alias</th>
+						<th style="width: 10%;">Type</th>
+						<th style="width: 8%;">Status</th>
+						<th id="createdOnCol" style="cursor: pointer;">Created&nbsp;<i
 							class="order-caret fa"></i></th>
 						<th>Action</th>
 					</tr>
@@ -176,7 +176,7 @@ if (session == null || session.getAttribute("user") == null) {
 		</article>
 
 		<aside class="right">
-			<h2><jsp:getProperty name="user" property="alias" /></h2>
+			<h3><jsp:getProperty name="user" property="alias" /></h3>
 			<p>
 				<em><jsp:getProperty name="user" property="email" /></em>
 			</p>

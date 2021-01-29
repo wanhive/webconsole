@@ -342,13 +342,13 @@ $(document).ready(function() {
 				.append('<tr><td>'
 					+ '</td><td>'
 					+ json.data[i].uid
-					+ '</td><td>'
+					+ '</td><td style="word-break:break-all;">'
 					+ json.data[i].email
 					+ '</td><td class="wh-collapsable">'
 					+ json.data[i].alias
-					+ '</td><td class="wh-collapsable">'
+					+ '</td><td>'
 					+ typeCodeToText(json.data[i].type)
-					+ '</td><td class="wh-collapsable">'
+					+ '</td><td>'
 					+ statusCodeToText(json.data[i].status)
 					+ '</td><td>'
 					+ '<time class="timeago" datetime="'
