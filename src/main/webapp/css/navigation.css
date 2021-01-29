@@ -29,6 +29,10 @@ table.auto-index tbody tr td:first-child:before {
 	content: counter(Serial); /* Display the counter */
 }
 
+table tr, th, td {
+	border-bottom: 1px solid #e4ebeb;
+}
+
 h1 {
 	font-weight: normal;
 }
