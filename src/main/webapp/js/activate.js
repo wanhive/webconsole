@@ -6,11 +6,11 @@
 $(document).ready(function() {
 	$('#secret, #cnfsecret').on('keyup', function() {
 		if ($('#secret').val() == $('#cnfsecret').val()) {
-			$('#message').html('Matching').css('color', 'green');
+			$('#message').html('&nbsp;');
 			$(':input[type="submit"]').prop('disabled', false);
 		} else {
+			$('#message').html('Passwords mismatch').css('color', 'red');
 			$(':input[type="submit"]').prop('disabled', true);
-			$('#message').html('Not Matching').css('color', 'red');
 		}
 	});
 

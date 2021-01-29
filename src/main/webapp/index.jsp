@@ -38,7 +38,7 @@ request.getSession().invalidate();
 			<%
 			if (Constants.isSignUpAllowed()) {
 			%>
-			<p style="color: #999">Don't have an account? <a href="newuser.jsp" style="font-weight: bolder; color: #555">Sign up here</a></p>
+			<p style="color: #999">Don't have an account? <a href="newuser.jsp" style="font-weight: bolder; color: #555">Sign up here.</a></p>
 			<%
 			}
 			%>

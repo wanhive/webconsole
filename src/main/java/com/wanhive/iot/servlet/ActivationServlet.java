@@ -73,7 +73,7 @@ public class ActivationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String challenge = request.getParameter("challenge");
 		String context = request.getParameter("context");
-		String secret = request.getParameter("secret");
+		String secret = request.getParameter("new-password");
 		String captcha = request.getParameter("captcha");
 		if (activate(new StringBuilder().append("http://localhost:").append(request.getServerPort())
 				.append(request.getContextPath()).toString(), challenge, context, secret, captcha)) {

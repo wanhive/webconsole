@@ -31,15 +31,15 @@
 					autofocus="autofocus" placeholder="Email address"><br>
 				<input type="text" name="challenge" required="required"
 					placeholder="Security token"><br> <input
-					type="password" name="secret" id="secret" required="required"
-					placeholder="Password"><br> <input type="password"
+					type="password" name="new-password" id="secret" required="required"
+					placeholder="New password"><br> <input type="password"
 					name="cnfsecret" id="cnfsecret" required="required"
 					placeholder="Confirm password"><br> <input
 					type="hidden" name="captcha" id="recaptcha-response"> <input
 					type="submit" name="submit" value="Submit">
 			</fieldset>
 		</form>
-		<span id='message'></span>
+		<span id='message'>&nbsp;</span>
 		<!-- end sign up form -->
 		<p>
 			<a href="index.jsp">Go to home page</a>
