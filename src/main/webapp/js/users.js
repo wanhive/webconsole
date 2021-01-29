@@ -382,6 +382,7 @@ $(document).ready(function() {
 			Math.floor((json.recordsTotal + currentLimit)
 				/ currentLimit));
 		$("#dataTable").basictable('restart');
+		$(window).scrollTop(0);
 	}
 
 	function reorderTable(col, ord) {

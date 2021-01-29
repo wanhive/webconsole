@@ -283,6 +283,7 @@ $(document).ready(function() {
 		$("#pageCounter").attr("min", 1);
 		$("#pageCounter").attr("max", Math.floor((json.recordsTotal + currentLimit) / currentLimit));
 		$("#dataTable").basictable('restart');
+		$(window).scrollTop(0);
 	}
 
 	function reorderTable(col, ord) {
