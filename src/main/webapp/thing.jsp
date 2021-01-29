@@ -31,9 +31,13 @@ try {
 	href="widget/jquery-ui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css"
 	href="widget/fontawesome/css/all.min.css">
+<link rel="stylesheet" type="text/css"
+	href="widget/basic-table/basictable.css">
 <script type="text/javascript" src="widget/jquery.min.js"></script>
 <script type="text/javascript" src="widget/jquery.timeago.js"></script>
 <script type="text/javascript" src="widget/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript"
+	src="widget/basic-table/jquery.basictable.min.js"></script>
 <script type="text/javascript">
 	var authorizationToken = '<jsp:getProperty name="user" property="token" />';
 	var domainUid =
@@ -163,15 +167,9 @@ try {
 				<tbody>
 				</tbody>
 				<tfoot>
-					<tr>
-						<td colspan="3"><span id="offsetFrom"></span>&nbsp;to&nbsp;<span
-							id="offsetTo"></span>&nbsp;of&nbsp;<span id="totalRecords"></span>
-						</td>
-						<td class="wh-collapsable"></td>
-						<td colspan="2"><jsp:include page="include/paginator.jsp"></jsp:include></td>
-					</tr>
 				</tfoot>
 			</table>
+			<jsp:include page="include/paginator.jsp"></jsp:include>
 			<p>&nbsp;</p>
 		</article>
 

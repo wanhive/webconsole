@@ -390,6 +390,7 @@ $(document).ready(function() {
 		$("#pageCounter").val(Math.floor((offset + currentLimit) / currentLimit));
 		$("#pageCounter").attr("min", 1);
 		$("#pageCounter").attr("max", Math.floor((json.recordsTotal + currentLimit) / currentLimit));
+		$("#dataTable").basictable('restart');
 	}
 
 	function loadDomainInfo() {
@@ -592,6 +593,10 @@ $(document).ready(function() {
 			+ currentRow.find('td:eq(1)')
 				.text());
 		confirmDialog.dialog("open");
+	});
+	
+	$("#dataTable").basictable({
+		breakpoint: 768
 	});
 
 	$(document).ajaxStart(function() {

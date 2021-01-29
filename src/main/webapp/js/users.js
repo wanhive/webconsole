@@ -381,6 +381,7 @@ $(document).ready(function() {
 			"max",
 			Math.floor((json.recordsTotal + currentLimit)
 				/ currentLimit));
+		$("#dataTable").basictable('restart');
 	}
 
 	function reorderTable(col, ord) {
@@ -504,6 +505,11 @@ $(document).ready(function() {
 			return;
 		}
 	});
+
+	$("#dataTable").basictable({
+		breakpoint: 768
+	});
+
 	$(document).ajaxStart(function() {
 		$("#wait-veil").css("display", "block");
 	});
