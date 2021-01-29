@@ -7,7 +7,7 @@ body {
 	color: #222;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
 		"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	font-size: 15px;
+	font-size: 1em;
 }
 
 a {
@@ -16,11 +16,12 @@ a {
 }
 
 .header {
-	height: 45px; /* Set header height */
 	background: #464646; /* Set header background color */
+	margin: auto;
 }
 
 .header h3 {
+	font-size: large;
 	color: #FFFFF3; /* Set header heading(top left title ) color */
 	padding: 10px; /* Set padding, to center it within the header */
 	font-weight: normal;
@@ -28,8 +29,8 @@ a {
 }
 
 .wrap {
-	width: 360px;
-	height: 480px;
+	width: 480px;
+	height: 520px;
 	background: rgba(255, 255, 255, 1.0);
 	color: #000;
 	top: 50%;
@@ -53,7 +54,7 @@ a {
 	outline: none;
 	height: 40px;
 	color: #000;
-	font-size: 16px;
+	font-size: larger;
 	font-weight: bold;
 }
 
@@ -63,7 +64,7 @@ a {
 	height: 40px;
 	background: #1c8adb;
 	color: #eee;
-	font-size: 18px;
+	font-size: larger;
 	border-radius: 5px;
 }
 
@@ -75,7 +76,6 @@ a {
 
 .wrap a {
 	text-decoration: none;
-	font-size: 14px;
 	color: #555;
 }
 

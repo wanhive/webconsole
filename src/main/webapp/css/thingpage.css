@@ -33,7 +33,7 @@ textarea.text {
 	border: none; /* Remove borders */
 	color: white; /* White text */
 	padding: 12px 12px; /* Some padding */
-	font-size: 16px; /* Set a font size */
+	font-size: 1em; /* Set a font size */
 	cursor: pointer; /* Mouse pointer on hover */
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -48,7 +48,7 @@ textarea.text {
 	border: none; /* Remove borders */
 	color: white; /* White text */
 	padding: 12px 12px; /* Some padding */
-	font-size: 16px; /* Set a font size */
+	font-size: 1em; /* Set a font size */
 	cursor: pointer; /* Mouse pointer on hover */
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -58,25 +58,12 @@ textarea.text {
 	background-color: RoyalBlue;
 }
 
-.btn-things {
-	background-color: #009900; /* Blue background */
-	border: none; /* Remove borders */
-	color: white; /* White text */
-	padding: 6px 6px; /* Some padding */
-	font-size: 8px; /* Set a font size */
-	cursor: pointer; /* Mouse pointer on hover */
-}
-
-.btn-things:hover {
-	background-color: #004d00;
-}
-
 .btn-settings {
 	background-color: #009900; /* Blue background */
 	border: none; /* Remove borders */
 	color: white; /* White text */
 	padding: 6px 6px; /* Some padding */
-	font-size: 8px; /* Set a font size */
+	font-size: 0.8em; /* Set a font size */
 	cursor: pointer; /* Mouse pointer on hover */
 }
 
@@ -89,7 +76,7 @@ textarea.text {
 	border: none; /* Remove borders */
 	color: white; /* White text */
 	padding: 6px 6px; /* Some padding */
-	font-size: 8px; /* Set a font size */
+	font-size: 0.8em; /* Set a font size */
 	cursor: pointer; /* Mouse pointer on hover */
 }
 
@@ -102,7 +89,7 @@ textarea.text {
 	border: none; /* Remove borders */
 	color: white; /* White text */
 	padding: 6px 6px; /* Some padding */
-	font-size: 8px; /* Set a font size */
+	font-size: 0.8em; /* Set a font size */
 	cursor: pointer; /* Mouse pointer on hover */
 }
 

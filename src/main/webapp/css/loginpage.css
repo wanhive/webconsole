@@ -12,7 +12,7 @@ body {
 	color: #222;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
 		"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	font-size: 15px;
+	font-size: 1em;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -25,8 +25,8 @@ a {
 }
 
 .login-box {
-	width: 360px;
-	height: 420px;
+	width: 500px;
+	height: 450px;
 	background: rgba(255, 255, 255, 0.9);
 	color: #000;
 	top: 50%;
@@ -34,24 +34,17 @@ a {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	box-sizing: border-box;
-	padding: 70px 30px;
+	padding: 100px 30px;
 }
 
 .avatar {
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	border-radius: 50%;
 	position: absolute;
-	top: -50px;
-	left: calc(50% - 50px);
+	top: -75px;
+	left: calc(50% - 75px);
 	/*display: none;*/
-}
-
-h1 {
-	margin: 0;
-	padding: 0 0 20px;
-	text-align: center;
-	font-size: 22px;
 }
 
 .login-box fieldset {
@@ -73,7 +66,7 @@ h1 {
 	outline: none;
 	height: 40px;
 	color: #6d2424;
-	font-size: 16px;
+	font-size: larger;
 	font-weight: bold;
 }
 
@@ -83,7 +76,7 @@ h1 {
 	height: 40px;
 	background: #1c8adb;
 	color: #eee;
-	font-size: 18px;
+	font-size: larger;
 	border-radius: 5px;
 }
 
@@ -95,7 +88,6 @@ h1 {
 
 .login-box a {
 	text-decoration: none;
-	font-size: 14px;
 	color: #555;
 }
 
