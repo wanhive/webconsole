@@ -87,11 +87,13 @@ if (session == null || session.getAttribute("user") == null) {
 			<table id="dataTable" class="ui-widget ui-widget-content">
 				<tr>
 					<td><strong>Alias</strong>&nbsp;</td>
-					<td><jsp:getProperty name="user" property="alias" /></td>
+					<td style="word-break: break-all;"><jsp:getProperty
+							name="user" property="alias" /></td>
 				</tr>
 				<tr>
 					<td><strong>Email</strong>&nbsp;</td>
-					<td><jsp:getProperty name="user" property="email" /></td>
+					<td style="word-break: break-all;"><jsp:getProperty
+							name="user" property="email" /></td>
 				</tr>
 				<tr>
 					<td><strong>Active since</strong>&nbsp;</td>
