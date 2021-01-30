@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #dataTable tbody tr:hover {
-	background-color: #ebf0fa;
+	background-color: #F0F6F4;
 }
 
 #add-form label {
