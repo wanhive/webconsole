@@ -344,7 +344,7 @@ $(document).ready(function() {
 					+ json.data[i].uid
 					+ '</td><td style="word-break:break-all;">'
 					+ json.data[i].email
-					+ '</td><td class="wh-collapsable">'
+					+ '</td><td style="word-break:break-all;">'
 					+ json.data[i].alias
 					+ '</td><td>'
 					+ typeCodeToText(json.data[i].type)

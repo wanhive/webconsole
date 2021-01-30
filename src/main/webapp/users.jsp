@@ -158,7 +158,7 @@ if (session == null || session.getAttribute("user") == null) {
 							class="order-caret fa fa-caret-down"></i></th>
 						<th id="emailCol" style="cursor: pointer; width: 370px;">Email&nbsp;<i
 							class="order-caret fa"></i></th>
-						<th class="wh-collapsable" style="width: 18%;">Alias</th>
+						<th style="width: 18%;">Alias</th>
 						<th style="width: 10%;">Type</th>
 						<th style="width: 8%;">Status</th>
 						<th id="createdOnCol" style="cursor: pointer;">Created&nbsp;<i
