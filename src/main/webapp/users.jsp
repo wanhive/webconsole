@@ -60,10 +60,10 @@ if (session == null || session.getAttribute("user") == null) {
 			<fieldset>
 				<label for="alias">Alias</label> <input type="text" name="alias"
 					id="alias" placeholder="Alias"
-					class="text ui-widget-content ui-corner-all" required="required">
-				<label for="email">Email</label> <input type="email" name="email"
+					class="text ui-widget-content ui-corner-all" required> <label
+					for="email">Email</label> <input type="email" name="email"
 					id="email" placeholder="x@y.com"
-					class="text ui-widget-content ui-corner-all" required="required">
+					class="text ui-widget-content ui-corner-all" required>
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<input type="submit" tabindex="-1"
 					style="position: absolute; top: -1000px">
@@ -76,14 +76,15 @@ if (session == null || session.getAttribute("user") == null) {
 
 		<form>
 			<fieldset>
-				<label for="password">Password</label> <input type="password"
-					name="password" id="newPassword" placeholder="Password"
+				<label for="newPassword">New&nbsp;password</label> <input
+					type="password" name="new-password" id="newPassword"
+					placeholder="New password"
 					class="text ui-widget-content ui-corner-all"> <label
 					for="cnfPassword">Confirm&nbsp;password</label> <input
 					type="password" name="cnfPassword" id="cnfPassword"
 					placeholder="Confirm password"
 					class="text ui-widget-content ui-corner-all"> <label
-					for="type">Type</label> <select name="newType" id="newType">
+					for="newType">Type</label> <select name="newType" id="newType">
 					<option value="3">Administrator</option>
 					<!-- <option value="2">Maintainer</option>
 					<option value="1">Reporter</option> -->

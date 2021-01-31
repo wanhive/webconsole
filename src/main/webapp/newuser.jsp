@@ -45,16 +45,16 @@ if (!Constants.isSignUpAllowed()) {
 		<form id="logonform">
 			<fieldset>
 				<legend>Create account</legend>
-				<input type="email" name="email" id="email" required="required"
-					autofocus="autofocus" placeholder="Email address"><br>
-				<input type="text" name="alias" id="alias" required="required"
-					placeholder="Alias"> <br> <span><input
-					type="checkbox" name="agreement" value="agree" id="agreement">I
-					have read and <strong>agree</strong> to the <a href="license.jsp"
-					target="_blank">Terms &amp; Conditions</a> and <a
-					href="privacy.jsp" target="_blank">Privacy Policy</a>.</span> <br>&nbsp;<br>
-				<input type="hidden" name="captcha" id="recaptcha-response">
-				<input type="submit" name="submit" value="Sign up">
+				<input type="email" name="email" id="email" required autofocus
+					placeholder="Email address"><br> <input type="text"
+					name="alias" id="alias" required placeholder="Alias"> <br>
+				<span><input type="checkbox" name="agreement" value="agree"
+					id="agreement">I have read and <strong>agree</strong> to
+					the <a href="license.jsp" target="_blank">Terms &amp;
+						Conditions</a> and <a href="privacy.jsp" target="_blank">Privacy
+						Policy</a>.</span> <br>&nbsp;<br> <input type="hidden"
+					name="captcha" id="recaptcha-response"> <input
+					type="submit" name="submit" value="Sign up">
 			</fieldset>
 		</form>
 		<!-- end sign up form -->
@@ -65,6 +65,7 @@ if (!Constants.isSignUpAllowed()) {
 		<p>
 			<a href="index.jsp">Go to home page</a>
 		</p>
+		<p>&nbsp;</p>
 	</div>
 	<!-- end wrap div -->
 	<!-- FOOTER -->

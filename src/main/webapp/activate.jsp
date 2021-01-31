@@ -27,16 +27,15 @@
 		<form action="Activate" method="post" id="activationForm">
 			<fieldset>
 				<legend>Activate account</legend>
-				<input type="email" name="context" required="required"
-					autofocus="autofocus" placeholder="Email address"><br>
-				<input type="text" name="challenge" required="required"
-					placeholder="Security token"><br> <input
-					type="password" name="new-password" id="secret" required="required"
+				<input type="email" name="context" required autofocus
+					placeholder="Email address"><br> <input
+					type="password" name="new-password" id="secret" required
 					placeholder="New password"><br> <input type="password"
-					name="cnfsecret" id="cnfsecret" required="required"
-					placeholder="Confirm password"><br> <input
-					type="hidden" name="captcha" id="recaptcha-response"> <input
-					type="submit" name="submit" value="Submit">
+					name="cnfsecret" id="cnfsecret" required
+					placeholder="Confirm password"><br> <input type="text"
+					name="challenge" required placeholder="Security token"><br>
+				<input type="hidden" name="captcha" id="recaptcha-response">
+				<input type="submit" name="submit" value="Submit">
 			</fieldset>
 		</form>
 		<span id='message'>&nbsp;</span>
@@ -44,6 +43,7 @@
 		<p>
 			<a href="index.jsp">Go to home page</a>
 		</p>
+		<p>&nbsp;</p>
 	</div>
 	<!-- end wrap div -->
 	<!-- FOOTER -->

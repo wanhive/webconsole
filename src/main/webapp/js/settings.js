@@ -84,7 +84,7 @@ $(document).ready(function() {
 		valid = valid
 			&& checkLength(currentPassword, "Password", 1,
 				32)
-			&& checkLength(newPassword, "Password", 8, 32)
+			&& checkLength(newPassword, "New Password", 8, 32)
 			&& checkInputMatch(newPassword, cnfPassword,
 				"Password");
 

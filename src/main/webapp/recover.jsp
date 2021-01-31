@@ -38,10 +38,10 @@
 		<form id="passform">
 			<fieldset>
 				<legend>Enter your email address</legend>
-				<input type="email" name="email" id="email" required="required"
-					autofocus="autofocus" placeholder="Email address"><br>
-				<input type="hidden" name="captcha" id="recaptcha-response">
-				<input type="submit" name="submit" value="Generate token">
+				<input type="email" name="email" id="email" required autofocus
+					placeholder="Email address"><br> <input type="hidden"
+					name="captcha" id="recaptcha-response"> <input
+					type="submit" name="submit" value="Generate token">
 			</fieldset>
 		</form>
 		<!-- end sign up form -->
@@ -52,6 +52,7 @@
 		<p>
 			<a href="index.jsp">Go to home page</a>
 		</p>
+		<p>&nbsp;</p>
 	</div>
 	<!-- end wrap div -->
 	<!-- FOOTER -->

@@ -52,8 +52,8 @@ $(document).ready(function() {
 
 	var updateDialog = $("#update-form").dialog({
 		autoOpen: false,
-		height: 600,
-		width: 450,
+		height: 520,
+		width: 400,
 		modal: true,
 		buttons: {
 			"Submit": modifyUser,

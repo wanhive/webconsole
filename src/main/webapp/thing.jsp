@@ -67,35 +67,36 @@ try {
 
 		<form>
 			<fieldset>
-				<label for="name">Name</label> <input type="text" name="name"
+				<label for="newName">Name</label> <input type="text" name="newName"
 					id="newName" placeholder="Thing's name"
-					class="text ui-widget-content ui-corner-all" required="required">
-				<label for="type">Type</label><select name="type" id="newType">
+					class="text ui-widget-content ui-corner-all" required> <label
+					for="newType">Type</label><select name="newType" id="newType">
 					<option value="1">Actuator</option>
 					<option value="2">Controller</option>
 					<option value="0">Master</option>
 					<option value="4">Processor</option>
 					<option value="3">Sensor</option>
-				</select><br>&nbsp;<br> <label for="salt">Salt</label>
-				<textarea name="salt" id="newSalt"
+				</select><br>&nbsp;<br> <label for="newSalt">Salt</label>
+				<textarea name="newSalt" id="newSalt"
 					placeholder="Salt for authentication"
 					class="text ui-widget-content ui-corner-all"></textarea>
-				<label for="verifier">Verifier</label>
-				<textarea name="verifier" id="newVerifier"
+				<label for="newVerifier">Verifier</label>
+				<textarea name="newVerifier" id="newVerifier"
 					placeholder="Verifier for authentication"
 					class="text ui-widget-content ui-corner-all"></textarea>
-				<label for="password">Password</label> <input type="password"
-					name="password" id="newPassword" placeholder="Password"
+				<label for="newPassword">New&nbsp;password</label> <input
+					type="password" name="new-password" id="newPassword"
+					placeholder="New password"
 					class="text ui-widget-content ui-corner-all"> <label
 					for="cnfPassword">Confirm&nbsp;password</label> <input
 					type="password" name="cnfPassword" id="cnfPassword"
 					placeholder="Confirm password"
 					class="text ui-widget-content ui-corner-all"> <label
-					for="rounds">Rounds</label> <input type="number" name="rounds"
-					id="newRounds" placeholder="Hash rounds" value="1" min="1"
-					max="<%=Constants.getMaxPasswordHashRounds()%>"
-					class="text ui-widget-content ui-corner-all" required="required">
-				<input type="hidden" name="thingUid" id="thingUid"> <input
+					for="newRounds">Rounds</label> <input type="number"
+					name="newRounds" id="newRounds" placeholder="Hash rounds" value="1"
+					min="1" max="<%=Constants.getMaxPasswordHashRounds()%>"
+					class="text ui-widget-content ui-corner-all" required> <input
+					type="hidden" name="thingUid" id="thingUid"> <input
 					type="hidden" name="computeVerifier" id="computeVerifier">
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<input type="submit" tabindex="-1"

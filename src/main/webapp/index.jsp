@@ -23,25 +23,28 @@ request.getSession().invalidate();
 		<form action="Authenticate" method="post">
 			<fieldset>
 				<legend>Registered user</legend>
-				<input type="email" name="username" required="required"
-					autofocus="autofocus" placeholder="Email"><br> <input
-					type="password" name="password" required="required"
-					placeholder="Password"><br> <input type="hidden"
-					name="captcha" id="recaptcha-response"> <input
+				<input type="email" name="username" required autofocus
+					placeholder="Email"><br> <input type="password"
+					name="password" required placeholder="Password"><br> <input
+					type="hidden" name="captcha" id="recaptcha-response"> <input
 					type="submit" name="submit" value="Sign in">
 			</fieldset>
 		</form>
 		<p>
 			<a href="recover.jsp" style="color: #3498db; font-weight: bolder;">Forgot
 				password?</a>
-				</p>
-			<%
-			if (Constants.isSignUpAllowed()) {
-			%>
-			<p style="color: #999">Don't have an account? <a href="newuser.jsp" style="font-weight: bolder; color: #555">Sign up here.</a></p>
-			<%
-			}
-			%>
+		</p>
+		<%
+		if (Constants.isSignUpAllowed()) {
+		%>
+		<p style="color: #999">
+			Don't have an account? <a href="newuser.jsp"
+				style="font-weight: bolder; color: #555">Sign up here.</a>
+		</p>
+		<%
+		}
+		%>
+		<p>&nbsp;</p>
 	</div>
 	<!-- FOOTER -->
 	<footer class="footer"><jsp:include page="include/footer.jsp"></jsp:include></footer>

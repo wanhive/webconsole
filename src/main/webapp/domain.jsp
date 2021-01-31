@@ -50,13 +50,13 @@ if (session == null || session.getAttribute("user") == null) {
 
 		<form>
 			<fieldset>
-				<label for="name">Name</label> <input type="text" name="name"
+				<label for="newName">Name</label> <input type="text" name="newName"
 					id="newName" placeholder="Domain name"
-					class="text ui-widget-content ui-corner-all" required="required">
-				<label for="description">Description</label>
-				<textarea name="description" id="newDescription"
-					placeholder="Description for domain name"
-					class="text ui-widget-content ui-corner-all" required="required"></textarea>
+					class="text ui-widget-content ui-corner-all" required> <label
+					for="newDescription">Description</label>
+				<textarea name="newDescription" id="newDescription"
+					placeholder="Domain's description"
+					class="text ui-widget-content ui-corner-all" required></textarea>
 				<input type="hidden" name="domainUid" id="domainUid">
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<input type="submit" tabindex="-1"

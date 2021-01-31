@@ -47,10 +47,9 @@ if (session == null || session.getAttribute("user") == null) {
 				<label for="currentPassword">Current&nbsp;password</label> <input
 					type="password" name="currentPassword" id="currentPassword"
 					placeholder="Current password"
-					class="text ui-widget-content ui-corner-all" required="required">
-				<label for="password">New&nbsp;password</label> <input
-					type="password" name="password" id="newPassword"
-					placeholder="New password"
+					class="text ui-widget-content ui-corner-all" required> <label
+					for="newPassword">New&nbsp;password</label> <input type="password"
+					name="new-password" id="newPassword" placeholder="New password"
 					class="text ui-widget-content ui-corner-all"> <label
 					for="cnfPassword">Confirm&nbsp;password</label> <input
 					type="password" name="cnfPassword" id="cnfPassword"

@@ -501,13 +501,13 @@ $(document).ready(function() {
 
 	$("#create-thing").on("click", function() {
 		$("span.ui-dialog-title").text('Create new thing');
-		$('label[for=name], #newName').show();
-		$('label[for=type], #newType').show();
-		$('label[for=salt], textarea#newSalt').hide();
-		$('label[for=verifier], textarea#newVerifier').hide();
-		$('label[for=password], #newPassword').hide();
+		$('label[for=newName], #newName').show();
+		$('label[for=newType], #newType').show();
+		$('label[for=newSalt], textarea#newSalt').hide();
+		$('label[for=newVerifier], textarea#newVerifier').hide();
+		$('label[for=newPassword], #newPassword').hide();
 		$('label[for=cnfPassword], #cnfPassword').hide();
-		$('label[for=rounds], #newRounds').hide();
+		$('label[for=newRounds], #newRounds').hide();
 		type.val("0");
 		updateTips("Name is required.");
 		addDialog.dialog("open");
@@ -537,19 +537,19 @@ $(document).ready(function() {
 			+ currentRow.find(
 				'td:eq(1)')
 				.text());
-		$('label[for=name], #newName').hide();
-		$('label[for=type], #newType').hide();
-		$('label[for=salt], textarea#newSalt')
+		$('label[for=newName], #newName').hide();
+		$('label[for=newType], #newType').hide();
+		$('label[for=newSalt], textarea#newSalt')
 			.hide();
 		$(
-			'label[for=verifier], textarea#newVerifier')
+			'label[for=newVerifier], textarea#newVerifier')
 			.hide();
-		$('label[for=password], #newPassword')
+		$('label[for=newPassword], #newPassword')
 			.show();
 		$(
 			'label[for=cnfPassword], #cnfPassword')
 			.show();
-		$('label[for=rounds], #newRounds')
+		$('label[for=newRounds], #newRounds')
 			.show();
 		computeVerifier.val("true");
 		updateTips("All form fields are required.");
@@ -569,19 +569,19 @@ $(document).ready(function() {
 			+ currentRow.find(
 				'td:eq(1)')
 				.text());
-		$('label[for=name], #newName').show();
-		$('label[for=type], #newType').show();
-		$('label[for=salt], textarea#newSalt')
+		$('label[for=newName], #newName').show();
+		$('label[for=newType], #newType').show();
+		$('label[for=newSalt], textarea#newSalt')
 			.show();
 		$(
-			'label[for=verifier], textarea#newVerifier')
+			'label[for=newVerifier], textarea#newVerifier')
 			.show();
-		$('label[for=password], #newPassword')
+		$('label[for=newPassword], #newPassword')
 			.hide();
 		$(
 			'label[for=cnfPassword], #cnfPassword')
 			.hide();
-		$('label[for=rounds], #newRounds')
+		$('label[for=newRounds], #newRounds')
 			.hide();
 		updateTips("Name is required.");
 		addDialog.dialog("open");
