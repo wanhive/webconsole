@@ -5,12 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.4.0] - 2021-02-01
 
 ### Added
 
 - **Wanhive Webconsole** logo on the index page.
-- Overflow handling of long texts and words (e.g. long aliases and email addresses).
+- Handle long texts and words overflow (e.g. long aliases and email addresses).
 - Automatically scroll up to the top of the page on data reload.
 
 ### Changed
