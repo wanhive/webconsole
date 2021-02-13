@@ -23,10 +23,14 @@ import com.wanhive.iot.util.Agreement;
 public class ThingDao {
 	public static PagedList list(long userUid, long domainUid, long limit, long offset, String order, String orderBy)
 			throws SQLException, NamingException {
-		if (limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
 		}
-		
+
+		if (offset < 0) {
+			throw new IllegalArgumentException("Invalid offset");
+		}
+
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select wh_thing.uid, wh_thing.createdon, wh_thing.modifiedon, wh_thing.name, wh_thing.type, wh_thing.status, wh_thing.flag, count(*) over() as totalrecords "
@@ -76,11 +80,16 @@ public class ThingDao {
 
 	public static PagedList search(long userUid, long domainUid, String keyword, long limit, long offset, String order,
 			String orderBy) throws SQLException, NamingException {
-		if (limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
 		}
 
-		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()) {
+		if (offset < 0) {
+			throw new IllegalArgumentException("Invalid offset");
+		}
+
+		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()
+				|| keyword.length() > Constants.getMaxSearchKeywordLength()) {
 			throw new IllegalArgumentException("Invalid keyword");
 		}
 

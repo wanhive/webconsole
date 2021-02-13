@@ -4,8 +4,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Password {
-	String password;
-	int rounds;
+	private String password;
+	private int rounds;
 	public String getPassword() {
 		return password;
 	}

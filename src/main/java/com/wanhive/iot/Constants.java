@@ -20,6 +20,7 @@ public class Constants {
 	private static int maxThingsPerDomain;
 	private static int maxItemsInList;
 	private static int minSearchKeywordLength;
+	private static int maxSearchKeywordLength;
 	private static ApplicationInfo appInfo;
 
 	static {
@@ -47,6 +48,7 @@ public class Constants {
 			maxThingsPerDomain = Integer.parseInt(resource.getString("maxThingsPerDomain"));
 			maxItemsInList = Integer.parseInt(resource.getString("maxItemsInList"));
 			minSearchKeywordLength = Integer.parseInt(resource.getString("minSearchKeywordLength"));
+			maxSearchKeywordLength = Integer.parseInt(resource.getString("maxSearchKeywordLength"));
 
 			/*
 			 * Populate application information bundle
@@ -96,6 +98,10 @@ public class Constants {
 
 	public static int getMinSearchKeywordLength() {
 		return minSearchKeywordLength >= 0 ? minSearchKeywordLength : 0;
+	}
+
+	public static int getMaxSearchKeywordLength() {
+		return maxSearchKeywordLength >= 0 ? maxSearchKeywordLength : 0;
 	}
 
 	public static ApplicationInfo getInfo() {

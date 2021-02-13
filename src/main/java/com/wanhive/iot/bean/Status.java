@@ -4,9 +4,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Status {
-	String status;
-	String message;
-	String description;
+	private String status;
+	private String message;
+	private String description;
 
 	public Status() {
 

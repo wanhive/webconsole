@@ -20,8 +20,12 @@ public class DomainDao {
 
 	public static PagedList list(long userUid, long limit, long offset, String order, String orderBy)
 			throws SQLException, NamingException {
-		if (limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
+		}
+
+		if (offset < 0) {
+			throw new IllegalArgumentException("Invalid offset");
 		}
 
 		StringBuilder queryBuilder = new StringBuilder();
@@ -71,11 +75,16 @@ public class DomainDao {
 
 	public static PagedList search(long userUid, String keyword, long limit, long offset, String order, String orderBy)
 			throws SQLException, NamingException {
-		if (limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
 		}
 
-		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()) {
+		if (offset < 0) {
+			throw new IllegalArgumentException("Invalid offset");
+		}
+
+		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()
+				|| keyword.length() > Constants.getMaxSearchKeywordLength()) {
 			throw new IllegalArgumentException("Invalid keyword");
 		}
 
