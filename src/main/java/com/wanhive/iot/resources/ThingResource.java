@@ -22,7 +22,7 @@ import com.wanhive.iot.bean.Password;
 @Path("/thing")
 @Api(value = "/thing")
 @SwaggerDefinition(tags = {
-		@Tag(name = "Endpoint management", description = "REST endpoint for management of IoT endpoints.") })
+		@Tag(name = "Endpoint management", description = "REST endpoint for the management of IoT endpoints.") })
 public class ThingResource {
 	@Context
 	private SecurityContext securityContext;

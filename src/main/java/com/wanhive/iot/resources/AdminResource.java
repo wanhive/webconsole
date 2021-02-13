@@ -29,7 +29,7 @@ import io.swagger.annotations.Tag;
 @Path("/admin")
 @Api(value = "/admin")
 @SwaggerDefinition(tags = {
-		@Tag(name = "Application administration", description = "REST endpoint for administration of application and users.") })
+		@Tag(name = "Application administration", description = "REST endpoint for application administration.") })
 public class AdminResource {
 	@GET
 	@Path("user")

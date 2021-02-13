@@ -470,8 +470,10 @@ $(document).ready(function() {
 			|| searchKeyword.val().length < minSearchKeywordLength) {
 			alert("Search keyword should be at least " + minSearchKeywordLength + " characters long.");
 			return;
+		} else if (searchKeyword.val().length > maxSearchKeywordLength) {
+			alert("Search keyword should not exceed " + maxSearchKeywordLength + " characters.");
+			return;
 		} else {
-			// Activate the search
 			searchActive = true;
 			offset = 0;
 			next = 0;

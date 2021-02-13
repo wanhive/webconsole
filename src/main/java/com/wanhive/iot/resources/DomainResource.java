@@ -18,7 +18,8 @@ import io.swagger.annotations.Tag;
 
 @Path("/domain")
 @Api(value = "/domain")
-@SwaggerDefinition(tags = { @Tag(name = "Domain registry", description = "REST endpoint for management of domains.") })
+@SwaggerDefinition(tags = {
+		@Tag(name = "Domain management", description = "REST endpoint for the management of domains.") })
 public class DomainResource {
 	@Context
 	private SecurityContext securityContext;

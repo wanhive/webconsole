@@ -30,7 +30,7 @@ import io.swagger.annotations.Tag;
 @Path("/user")
 @Api(value = "/user")
 @SwaggerDefinition(tags = {
-		@Tag(name = "User management", description = "REST endpoint for management of existing and new users.") })
+		@Tag(name = "User management", description = "REST endpoint for the management of user accounts.") })
 public class UserResource {
 	@Context
 	private SecurityContext securityContext;

@@ -43,6 +43,9 @@ if (session == null || session.getAttribute("user") == null) {
 	var minSearchKeywordLength =
 <%=Constants.getMinSearchKeywordLength()%>
 	;
+	var maxSearchKeywordLength =
+<%=Constants.getMaxSearchKeywordLength()%>
+	;
 </script>
 <script type="text/javascript" src="js/navbar.js"></script>
 <script type="text/javascript" src="js/users.js"></script>
