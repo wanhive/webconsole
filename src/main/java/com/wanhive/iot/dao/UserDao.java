@@ -51,12 +51,12 @@ public class UserDao {
 			}
 		}
 
-		String sqlParam = orderBy.equalsIgnoreCase("email") ? "email"
-				: orderBy.equalsIgnoreCase("createdon") ? "createdon" : "uid";
+		String sqlParam = "email".equalsIgnoreCase(orderBy) ? "email"
+				: "createdon".equalsIgnoreCase(orderBy) ? "createdon" : "uid";
 		queryBuilder.append(" order by ");
 		queryBuilder.append(sqlParam);
 
-		sqlParam = order.equalsIgnoreCase("desc") ? "desc" : "asc";
+		sqlParam = "desc".equalsIgnoreCase(order) ? "desc" : "asc";
 		queryBuilder.append(" ");
 		queryBuilder.append(sqlParam);
 
@@ -129,12 +129,12 @@ public class UserDao {
 				queryBuilder.append("status=?");
 			}
 		}
-		String sqlParam = orderBy.equalsIgnoreCase("email") ? "email"
-				: orderBy.equalsIgnoreCase("createdon") ? "createdon" : "uid";
+		String sqlParam = "email".equalsIgnoreCase(orderBy) ? "email"
+				: "createdon".equalsIgnoreCase(orderBy) ? "createdon" : "uid";
 		queryBuilder.append(" order by ");
 		queryBuilder.append(sqlParam);
 
-		sqlParam = order.equalsIgnoreCase("desc") ? "desc" : "asc";
+		sqlParam = "desc".equalsIgnoreCase(order) ? "desc" : "asc";
 		queryBuilder.append(" ");
 		queryBuilder.append(sqlParam);
 

@@ -35,12 +35,12 @@ public class ThingDao {
 		queryBuilder.append(
 				"select wh_thing.uid, wh_thing.createdon, wh_thing.modifiedon, wh_thing.name, wh_thing.type, wh_thing.status, wh_thing.flag, count(*) over() as totalrecords "
 						+ "from wh_thing, wh_domain where wh_thing.domainuid=? and wh_domain.uid = wh_thing.domainuid and wh_domain.useruid= ?");
-		String sqlParam = orderBy.equalsIgnoreCase("name") ? "wh_thing.name"
-				: orderBy.equalsIgnoreCase("uid") ? "wh_thing.uid" : "wh_thing.createdon";
+		String sqlParam = "name".equalsIgnoreCase(orderBy) ? "wh_thing.name"
+				: "uid".equalsIgnoreCase(orderBy) ? "wh_thing.uid" : "wh_thing.createdon";
 		queryBuilder.append(" order by ");
 		queryBuilder.append(sqlParam);
 
-		sqlParam = order.equalsIgnoreCase("desc") ? "desc" : "asc";
+		sqlParam = "desc".equalsIgnoreCase(order) ? "desc" : "asc";
 		queryBuilder.append(" ");
 		queryBuilder.append(sqlParam);
 
@@ -99,12 +99,12 @@ public class ThingDao {
 				"select wh_thing.uid, wh_thing.createdon, wh_thing.modifiedon, wh_thing.name, wh_thing.type, wh_thing.status, wh_thing.flag, count(*) over() as totalrecords "
 						+ "from wh_thing, wh_domain where wh_thing.domainuid=? and wh_domain.uid = wh_thing.domainuid and "
 						+ "wh_domain.useruid= ? and lower(wh_thing.name) like ? ");
-		String sqlParam = orderBy.equalsIgnoreCase("name") ? "wh_thing.name"
-				: orderBy.equalsIgnoreCase("uid") ? "wh_thing.uid" : "wh_thing.createdon";
+		String sqlParam = "name".equalsIgnoreCase(orderBy) ? "wh_thing.name"
+				: "uid".equalsIgnoreCase(orderBy) ? "wh_thing.uid" : "wh_thing.createdon";
 		queryBuilder.append(" order by ");
 		queryBuilder.append(sqlParam);
 
-		sqlParam = order.equalsIgnoreCase("desc") ? "desc" : "asc";
+		sqlParam = "desc".equalsIgnoreCase(order) ? "desc" : "asc";
 		queryBuilder.append(" ");
 		queryBuilder.append(sqlParam);
 

@@ -31,12 +31,12 @@ public class DomainDao {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select uid, createdon, modifiedon, name, description, type, status, flag, count(*) over() as totalrecords from wh_domain where useruid=?");
-		String sqlParam = orderBy.equalsIgnoreCase("name") ? "name"
-				: orderBy.equalsIgnoreCase("createdon") ? "createdon" : "uid";
+		String sqlParam = "name".equalsIgnoreCase(orderBy) ? "name"
+				: "createdon".equalsIgnoreCase(orderBy) ? "createdon" : "uid";
 		queryBuilder.append(" order by ");
 		queryBuilder.append(sqlParam);
 
-		sqlParam = order.equalsIgnoreCase("desc") ? "desc" : "asc";
+		sqlParam = "desc".equalsIgnoreCase(order) ? "desc" : "asc";
 		queryBuilder.append(" ");
 		queryBuilder.append(sqlParam);
 
@@ -92,12 +92,12 @@ public class DomainDao {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append(
 				"select uid, createdon, modifiedon, name, description, type, status, flag, count(*) over() as totalrecords from wh_domain where useruid=? and (lower(name) like ? or lower(description) like ?) ");
-		String sqlParam = orderBy.equalsIgnoreCase("name") ? "name"
-				: orderBy.equalsIgnoreCase("createdon") ? "createdon" : "uid";
+		String sqlParam = "name".equalsIgnoreCase(orderBy) ? "name"
+				: "createdon".equalsIgnoreCase(orderBy) ? "createdon" : "uid";
 		queryBuilder.append(" order by ");
 		queryBuilder.append(sqlParam);
 
-		sqlParam = order.equalsIgnoreCase("desc") ? "desc" : "asc";
+		sqlParam = "desc".equalsIgnoreCase(order) ? "desc" : "asc";
 		queryBuilder.append(" ");
 		queryBuilder.append(sqlParam);
 
