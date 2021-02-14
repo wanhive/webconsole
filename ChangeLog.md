@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Check limit and offset before database query.
 - POJO fields should be private.
+- Clear out the search keyword on table data refresh.
 
 ## [0.4.0] - 2021-02-01
 

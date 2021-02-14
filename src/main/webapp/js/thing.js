@@ -494,8 +494,8 @@ $(document).ready(function() {
 			offset = 0;
 			next = 0;
 			previous = 0;
-			searchKeyword.val("");
 		}
+		searchKeyword.val("");
 		populateThings();
 	});
 
