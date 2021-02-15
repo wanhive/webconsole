@@ -16,6 +16,7 @@ This package is a maven webapp project which can be compiled into a web applicat
 
 # Resources
 
+* [CHANGELOG](ChangeLog.md)
 * [FAQ](HOWTO-faq.md)
 * [INSTALL](INSTALL.md)
 * [LICENSE](LICENSE)
