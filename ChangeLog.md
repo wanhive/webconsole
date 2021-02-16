@@ -7,14 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Maximum search keyword length in the application's settings.
+
 ## Changed
 
 - Improve look-and-feel.
 - Improve parameter checking in the back end.
-
-### Added
-
-- Maximum search keyword length in the application's settings.
 
 ### Fixed
 
