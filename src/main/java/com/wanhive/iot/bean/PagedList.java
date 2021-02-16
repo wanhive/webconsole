@@ -1,9 +1,7 @@
 package com.wanhive.iot.bean;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 public class PagedList {
 	private int draw;
 	private long recordsTotal;

@@ -1,8 +1,5 @@
 package com.wanhive.iot.bean;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class Status {
 	private String status;
 	private String message;

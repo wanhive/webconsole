@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -29,16 +27,16 @@ public class ActivationServlet extends HttpServlet {
 		Response response = null;
 		boolean success = false;
 		try {
-			client = ClientBuilder.newClient();
-			WebTarget webTarget = client.target(baseUrl).path("api/user/activate");
-			webTarget.property(ClientProperties.FOLLOW_REDIRECTS, Boolean.TRUE);
 			Challenge ch = new Challenge();
 			ch.setChallenge(challenge);
 			ch.setContext(context);
 			ch.setSecret(secret);
 			ch.setCaptcha(captcha);
-			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-			response = invocationBuilder.post(Entity.entity(ch, MediaType.APPLICATION_JSON));
+
+			client = ClientBuilder.newClient();
+			response = client.target(baseUrl).path("api/user/activate")
+					.property(ClientProperties.FOLLOW_REDIRECTS, Boolean.TRUE).request(MediaType.APPLICATION_JSON)
+					.post(Entity.entity(ch, MediaType.APPLICATION_JSON));
 			success = (response.getStatus() == Response.Status.OK.getStatusCode());
 		} finally {
 			try {

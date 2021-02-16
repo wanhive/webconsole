@@ -10,8 +10,6 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -31,16 +29,15 @@ public class AuthenticationServlet extends HttpServlet {
 		Response response = null;
 		User user = null;
 		try {
-			client = ClientBuilder.newClient();
-			WebTarget webTarget = client.target(baseUrl).path("api/authenticate");
-			webTarget.property(ClientProperties.FOLLOW_REDIRECTS, Boolean.TRUE);
-
 			User subject = new User();
 			subject.setEmail(username);
 			subject.setPassword(password);
 			subject.setCaptcha(captcha);
-			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-			response = invocationBuilder.post(Entity.entity(subject, MediaType.APPLICATION_JSON));
+
+			client = ClientBuilder.newClient();
+			response = client.target(baseUrl).path("api/authenticate")
+					.property(ClientProperties.FOLLOW_REDIRECTS, Boolean.TRUE).request(MediaType.APPLICATION_JSON)
+					.post(Entity.entity(subject, MediaType.APPLICATION_JSON));
 
 			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 				user = response.readEntity(User.class);

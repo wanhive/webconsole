@@ -1,8 +1,5 @@
 package com.wanhive.iot.bean;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class ApplicationInfo {
 	private String title;
 	private String description;
@@ -67,5 +64,4 @@ public class ApplicationInfo {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
 }

@@ -18,9 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Check limit and offset before database queries.
-- POJO fields should be private.
+- POJO fields should have private visibility.
 - Clear out the search keyword on data table refresh.
+
+### Removed
+
+- XML support and other unused annotations/features/dependencies.
 
 ## [0.4.0] - 2021-02-01
 

@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
 
 import org.glassfish.jersey.client.ClientProperties;
 
@@ -31,12 +29,9 @@ public class SignOutServlet extends HttpServlet {
 				return;
 			}
 			client = ClientBuilder.newClient();
-			WebTarget webTarget = client.target(baseUrl).path("api/user/token");
-			webTarget.property(ClientProperties.FOLLOW_REDIRECTS, Boolean.TRUE);
-
-			Invocation.Builder invocationBuilder = webTarget.request();
-			invocationBuilder.header("Authorization", new StringBuilder().append("Bearer ").append(token).toString());
-			invocationBuilder.delete();
+			client.target(baseUrl).path("api/user/token").property(ClientProperties.FOLLOW_REDIRECTS, Boolean.TRUE)
+					.request().header("Authorization", new StringBuilder().append("Bearer ").append(token).toString())
+					.delete();
 		} finally {
 			try {
 				if (client != null)
@@ -60,8 +55,6 @@ public class SignOutServlet extends HttpServlet {
 						.append(request.getContextPath()).toString();
 				deleteSession(baseUrl, user.getToken());
 			}
-		} catch (Exception e) {
-
 		} finally {
 			session.invalidate();
 			response.sendRedirect("index.jsp");
