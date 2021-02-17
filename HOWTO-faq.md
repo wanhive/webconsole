@@ -3,11 +3,11 @@
 - Create an [issue](https://github.com/wanhive/webconsole/issues) on the github.
 - Send us an email [info@wanhive.com].
 
-### Getting started.
+### Quickstart guide.
 
 It takes four steps to register an IoT endpoint (thing):
 
-- **Log in**: the application has a browser-based user interface. Sign in to the application with your registered email and password.
+- **Log in**: the application has a browser-based user interface. Sign in to the application with your registered email and password (should not be an administrator account).
 - **Create a domain**: Creating a *domain* is easy. Click on the *Create* button and provide a name and a description for the new domain.
 - **Create a thing**: Click on the *Manage things* button of the domain where your *thing* will reside. Click on the *Create* button and provide a meaningful name for the *thing*.
 - **Secure the thing**: Click on the *Settings* button and create a password for the *thing*.
