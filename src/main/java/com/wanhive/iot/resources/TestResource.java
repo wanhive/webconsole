@@ -15,7 +15,7 @@ import io.swagger.annotations.Tag;
 @Path("/test")
 @Api(value = "/test")
 @SwaggerDefinition(tags = {
-		@Tag(name = "Application test", description = "REST endpoint for testing and validation of the web application.") })
+		@Tag(name = "Application test", description = "REST endpoint for testing the application.") })
 public class TestResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

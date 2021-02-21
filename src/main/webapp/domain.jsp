@@ -33,10 +33,10 @@ if (session == null || session.getAttribute("user") == null) {
 <script type="text/javascript">
 	var authorizationToken = '<jsp:getProperty name="user" property="token" />';
 	var minSearchKeywordLength =
-<%=Constants.getMinSearchKeywordLength()%>
+<%=Constants.getSettings().getMinSearchKeywordLength()%>
 	;
 	var maxSearchKeywordLength =
-<%=Constants.getMaxSearchKeywordLength()%>
+<%=Constants.getSettings().getMaxSearchKeywordLength()%>
 	;
 </script>
 <script type="text/javascript" src="js/navbar.js"></script>

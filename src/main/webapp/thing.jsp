@@ -44,16 +44,16 @@ try {
 <%=domainUid%>
 	;
 	var maxPasswordHashRounds =
-<%=Constants.getMaxPasswordHashRounds()%>
+<%=Constants.getSettings().getMaxPasswordHashRounds()%>
 	;
 	var maxThingsPerDomain =
-<%=Constants.getMaxThingsPerDomain()%>
+<%=Constants.getSettings().getMaxThingsPerDomain()%>
 	;
 	var minSearchKeywordLength =
-<%=Constants.getMinSearchKeywordLength()%>
+<%=Constants.getSettings().getMinSearchKeywordLength()%>
 	;
 	var maxSearchKeywordLength =
-<%=Constants.getMaxSearchKeywordLength()%>
+<%=Constants.getSettings().getMaxSearchKeywordLength()%>
 	;
 </script>
 <script type="text/javascript" src="js/navbar.js"></script>
@@ -97,7 +97,8 @@ try {
 					class="text ui-widget-content ui-corner-all"> <label
 					for="newRounds">Rounds</label> <input type="number"
 					name="newRounds" id="newRounds" placeholder="Hash rounds" value="1"
-					min="1" max="<%=Constants.getMaxPasswordHashRounds()%>"
+					min="1"
+					max="<%=Constants.getSettings().getMaxPasswordHashRounds()%>"
 					class="text ui-widget-content ui-corner-all" required> <input
 					type="hidden" name="thingUid" id="thingUid"> <input
 					type="hidden" name="computeVerifier" id="computeVerifier">

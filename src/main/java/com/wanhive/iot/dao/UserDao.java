@@ -25,7 +25,7 @@ import com.wanhive.iot.provider.DataSourceProvider;
 public class UserDao {
 	public static PagedList list(long limit, long offset, String order, String orderBy, int type, int status)
 			throws SQLException, NamingException {
-		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getSettings().getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
 		}
 
@@ -101,7 +101,7 @@ public class UserDao {
 
 	public static PagedList search(String keyword, long limit, long offset, String order, String orderBy, int type,
 			int status) throws SQLException, NamingException {
-		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getSettings().getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
 		}
 
@@ -109,8 +109,8 @@ public class UserDao {
 			throw new IllegalArgumentException("Invalid offset");
 		}
 
-		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()
-				|| keyword.length() > Constants.getMaxSearchKeywordLength()) {
+		if (keyword == null || keyword.length() < Constants.getSettings().getMinSearchKeywordLength()
+				|| keyword.length() > Constants.getSettings().getMaxSearchKeywordLength()) {
 			throw new IllegalArgumentException("Invalid keyword");
 		}
 

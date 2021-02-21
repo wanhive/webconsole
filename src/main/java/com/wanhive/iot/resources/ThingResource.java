@@ -35,7 +35,7 @@ public class ThingResource {
 	@GET
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response get(@QueryParam("domainUid") long domainUid, @DefaultValue("256") @QueryParam("limit") long limit,
+	public Response get(@QueryParam("domainUid") long domainUid, @DefaultValue("10") @QueryParam("limit") long limit,
 			@DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("createdon") @QueryParam("orderBy") String orderBy) throws Exception {
@@ -47,7 +47,7 @@ public class ThingResource {
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response search(@QueryParam("domainUid") long domainUid, @QueryParam("keyword") String keyword,
-			@DefaultValue("256") @QueryParam("limit") long limit, @DefaultValue("0") @QueryParam("offset") long offset,
+			@DefaultValue("10") @QueryParam("limit") long limit, @DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy) throws Exception {
 		return Response.ok(ThingDao.search(getUserUid(), domainUid, keyword, limit, offset, order, orderBy)).build();

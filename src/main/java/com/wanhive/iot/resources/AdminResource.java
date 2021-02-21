@@ -35,7 +35,7 @@ public class AdminResource {
 	@Path("user")
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsers(@DefaultValue("256") @QueryParam("limit") long limit,
+	public Response getUsers(@DefaultValue("10") @QueryParam("limit") long limit,
 			@DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy,
@@ -49,7 +49,7 @@ public class AdminResource {
 	@Secured({ Role.ADMINISTRATOR })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response searchUsers(@QueryParam("keyword") String keyword,
-			@DefaultValue("256") @QueryParam("limit") long limit, @DefaultValue("0") @QueryParam("offset") long offset,
+			@DefaultValue("10") @QueryParam("limit") long limit, @DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy,
 			@DefaultValue("-1") @QueryParam("type") int type, @DefaultValue("-1") @QueryParam("status") int status)

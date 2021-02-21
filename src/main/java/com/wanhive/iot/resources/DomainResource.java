@@ -32,7 +32,7 @@ public class DomainResource {
 	@GET
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response get(@DefaultValue("256") @QueryParam("limit") long limit,
+	public Response get(@DefaultValue("10") @QueryParam("limit") long limit,
 			@DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy) throws Exception {
@@ -43,7 +43,7 @@ public class DomainResource {
 	@Path("search")
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response search(@QueryParam("keyword") String keyword, @DefaultValue("256") @QueryParam("limit") long limit,
+	public Response search(@QueryParam("keyword") String keyword, @DefaultValue("10") @QueryParam("limit") long limit,
 			@DefaultValue("0") @QueryParam("offset") long offset,
 			@DefaultValue("desc") @QueryParam("order") String order,
 			@DefaultValue("uid") @QueryParam("orderBy") String orderBy) throws Exception {

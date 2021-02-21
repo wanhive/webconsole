@@ -9,6 +9,6 @@
 		title="There is no restriction on the number of domains.">How many
 			domains are allowed?</a></li>
 	<li><a href="#"
-		title="The total number of things in a domain is limited to <%=Constants.getMaxThingsPerDomain()%> things. There is no restriction on the total number of things.">How
+		title="The total number of things in a domain is limited to <%=Constants.getSettings().getMaxThingsPerDomain()%> things. There is no restriction on the total number of things.">How
 			many things are allowed?</a></li>
 </ul>

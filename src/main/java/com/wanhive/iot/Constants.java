@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import com.wanhive.iot.bean.ApplicationInfo;
+import com.wanhive.iot.bean.ApplicationSettings;
 import com.wanhive.iot.provider.ContextLookupProvider;
 
 public class Constants {
@@ -13,15 +14,11 @@ public class Constants {
 	private static String swaggerSchemes;
 	private static String swaggerHost;
 
-	private static boolean cors;
 	private static String dataSourceName;
 	private static String emailSessionName;
-	private static int maxPasswordHashRounds;
-	private static int maxThingsPerDomain;
-	private static int maxItemsInList;
-	private static int minSearchKeywordLength;
-	private static int maxSearchKeywordLength;
-	private static ApplicationInfo appInfo;
+	
+	private static ApplicationSettings settings;
+	private static ApplicationInfo info;
 
 	static {
 		try {
@@ -41,27 +38,36 @@ public class Constants {
 			 * Read properties
 			 */
 			ResourceBundle resource = ResourceBundle.getBundle("app");
-			cors = Boolean.parseBoolean(resource.getString("cors"));
-			dataSourceName = resource.getString("dataSourceName");
-			emailSessionName = resource.getString("emailSessionName");
-			maxPasswordHashRounds = Integer.parseInt(resource.getString("maxPasswordHashRounds"));
-			maxThingsPerDomain = Integer.parseInt(resource.getString("maxThingsPerDomain"));
-			maxItemsInList = Integer.parseInt(resource.getString("maxItemsInList"));
-			minSearchKeywordLength = Integer.parseInt(resource.getString("minSearchKeywordLength"));
-			maxSearchKeywordLength = Integer.parseInt(resource.getString("maxSearchKeywordLength"));
 
 			/*
-			 * Populate application information bundle
+			 * Populate private settings
 			 */
-			appInfo = new ApplicationInfo();
-			appInfo.setTitle(resource.getString("title"));
-			appInfo.setDescription(resource.getString("description"));
-			appInfo.setVersion(resource.getString("version"));
-			appInfo.setYear(resource.getString("year"));
+			dataSourceName = resource.getString("dataSourceName");
+			emailSessionName = resource.getString("emailSessionName");
 
-			appInfo.setAuthor(resource.getString("author"));
-			appInfo.setUrl(resource.getString("url"));
-			appInfo.setContact(resource.getString("contact"));
+			/*
+			 * Populate public settings
+			 */
+			settings = new ApplicationSettings();
+			settings.setCors(Boolean.parseBoolean(resource.getString("cors")));
+			settings.setMaxPasswordHashRounds(Integer.parseInt(resource.getString("maxPasswordHashRounds")));
+			settings.setMaxThingsPerDomain(Integer.parseInt(resource.getString("maxThingsPerDomain")));
+			settings.setMaxItemsInList(Integer.parseInt(resource.getString("maxItemsInList")));
+			settings.setMinSearchKeywordLength(Integer.parseInt(resource.getString("minSearchKeywordLength")));
+			settings.setMaxSearchKeywordLength(Integer.parseInt(resource.getString("maxSearchKeywordLength")));
+
+			/*
+			 * Populate application information
+			 */
+			info = new ApplicationInfo();
+			info.setTitle(resource.getString("title"));
+			info.setDescription(resource.getString("description"));
+			info.setVersion(resource.getString("version"));
+			info.setYear(resource.getString("year"));
+
+			info.setAuthor(resource.getString("author"));
+			info.setUrl(resource.getString("url"));
+			info.setContact(resource.getString("contact"));
 
 			// SUCCESS
 			Logger.getGlobal().info("Application settings have been loaded");
@@ -72,10 +78,6 @@ public class Constants {
 
 	}
 
-	public static boolean allowCORS() {
-		return cors;
-	}
-
 	public static String getDataSourceName() {
 		return dataSourceName;
 	}
@@ -84,28 +86,12 @@ public class Constants {
 		return emailSessionName;
 	}
 
-	public static int getMaxPasswordHashRounds() {
-		return maxPasswordHashRounds >= 0 ? maxPasswordHashRounds : 0;
-	}
-
-	public static int getMaxThingsPerDomain() {
-		return maxThingsPerDomain >= 0 ? maxThingsPerDomain : 0;
-	}
-
-	public static int getMaxItemsInList() {
-		return maxItemsInList >= 0 ? maxItemsInList : 0;
-	}
-
-	public static int getMinSearchKeywordLength() {
-		return minSearchKeywordLength >= 0 ? minSearchKeywordLength : 0;
-	}
-
-	public static int getMaxSearchKeywordLength() {
-		return maxSearchKeywordLength >= 0 ? maxSearchKeywordLength : 0;
+	public static ApplicationSettings getSettings() {
+		return settings;
 	}
 
 	public static ApplicationInfo getInfo() {
-		return appInfo;
+		return info;
 	}
 
 	public static boolean isSignUpAllowed() {

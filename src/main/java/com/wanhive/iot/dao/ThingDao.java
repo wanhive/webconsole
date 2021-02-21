@@ -23,7 +23,7 @@ import com.wanhive.iot.util.Agreement;
 public class ThingDao {
 	public static PagedList list(long userUid, long domainUid, long limit, long offset, String order, String orderBy)
 			throws SQLException, NamingException {
-		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getSettings().getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
 		}
 
@@ -80,7 +80,7 @@ public class ThingDao {
 
 	public static PagedList search(long userUid, long domainUid, String keyword, long limit, long offset, String order,
 			String orderBy) throws SQLException, NamingException {
-		if (limit < 0 || limit > Constants.getMaxItemsInList()) {
+		if (limit < 0 || limit > Constants.getSettings().getMaxItemsInList()) {
 			throw new IllegalArgumentException("Invalid limit");
 		}
 
@@ -88,8 +88,8 @@ public class ThingDao {
 			throw new IllegalArgumentException("Invalid offset");
 		}
 
-		if (keyword == null || keyword.length() < Constants.getMinSearchKeywordLength()
-				|| keyword.length() > Constants.getMaxSearchKeywordLength()) {
+		if (keyword == null || keyword.length() < Constants.getSettings().getMinSearchKeywordLength()
+				|| keyword.length() > Constants.getSettings().getMaxSearchKeywordLength()) {
 			throw new IllegalArgumentException("Invalid keyword");
 		}
 
@@ -207,7 +207,7 @@ public class ThingDao {
 
 	public static long create(long userUid, long domainUid, String name, int type)
 			throws SQLException, NamingException {
-		if (Constants.getMaxThingsPerDomain() <= 0) {
+		if (Constants.getSettings().getMaxThingsPerDomain() <= 0) {
 			throw new IllegalStateException("Invalid application settings");
 		}
 
@@ -221,7 +221,7 @@ public class ThingDao {
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
 			ps.setLong(1, domainUid);
-			ps.setLong(2, (domainUid + Constants.getMaxThingsPerDomain() - 1));
+			ps.setLong(2, (domainUid + Constants.getSettings().getMaxThingsPerDomain() - 1));
 			ps.setLong(3, 1);
 			ps.setLong(4, domainUid);
 			ps.setLong(5, domainUid);
@@ -298,7 +298,7 @@ public class ThingDao {
 
 	public static void updateVerifier(long userUid, String uid, int rounds, String password)
 			throws SQLException, NamingException {
-		if (password == null || rounds < 0 || rounds > Constants.getMaxPasswordHashRounds()) {
+		if (password == null || rounds < 0 || rounds > Constants.getSettings().getMaxPasswordHashRounds()) {
 			throw new IllegalArgumentException("Invalid parameters");
 		}
 
