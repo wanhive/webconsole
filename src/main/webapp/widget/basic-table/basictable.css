@@ -18,7 +18,6 @@ table.bt tbody td {
   display: -ms-flexbox;
   display: flex;
   vertical-align: top;
-
   /* IE 9 */
   float: left\9;
   width: 100%\9;

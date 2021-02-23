@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - REST API to retrieve the public application settings.
 
+### Changed
+
+- Upgrade the responsive table library to the new release (2.0.2).
+
 ## [0.5.0] - 2021-02-17
 
 ### Added
