@@ -25,12 +25,12 @@ mvn clean compile war:war
     * [activation](https://mvnrepository.com/artifact/javax.activation/activation)
     * [javax-mail](https://mvnrepository.com/artifact/com.sun.mail/javax.mail)
     * [postgresql](https://mvnrepository.com/artifact/org.postgresql/postgresql)
-2. Place the libraries into the **lib** directory of the Apache Tomcat installation.
+2. Place the external libraries inside Apache Tomcat installation's **lib** directory.
 3. Move the web archive (WAR) file to Apache Tomcat installation's **webapps** directory.
 
 #### Apache Tomcat 10 setup
 
-Quoting the [Apache Tomcat website](http://tomcat.apache.org/):
+Quoting information from the [Apache Tomcat website](http://tomcat.apache.org/):
 
 > Applications that run on Tomcat 9 and earlier will not run on Tomcat 10 without changes. Java EE applications designed for Tomcat 9 and earlier may be placed in the `$CATALINA_BASE/webapps-javaee` directory and Tomcat will automatically convert them to Jakarta EE and copy them to the webapps directory.
 
