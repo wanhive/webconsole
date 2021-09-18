@@ -440,12 +440,37 @@ $(document).ready(function() {
 				: "fa-caret-down");
 	}
 
+	function doSearch() {
+		if (searchKeyword.val() == null
+			|| searchKeyword.val().length < minSearchKeywordLength) {
+			alert("Search keyword should be at least " + minSearchKeywordLength + " characters long.");
+			return;
+		} else if (searchKeyword.val().length > maxSearchKeywordLength) {
+			alert("Search keyword should not exceed " + maxSearchKeywordLength + " characters.");
+			return;
+		} else {
+			searchActive = true;
+			offset = 0;
+			next = 0;
+			previous = 0;
+			populateThings();
+		}
+	}
+
 	limit.change(function() {
 		offset = 0;
 		previous = 0;
 		next = 0;
 		populateThings();
 	});
+
+	searchKeyword.keyup(function(event) {
+		if (event.keyCode === 13) { //Enter key-code
+			event.preventDefault();
+			doSearch();
+		}
+	});
+
 	$("#uidCol").click(function() {
 		reorderTable($(this), "uid");
 	});
@@ -470,8 +495,8 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#pageCounter").bind('keyup', function(event) {
-		if (event.keyCode === 13) {
+	$("#pageCounter").on("keyup", function(event) {
+		if (event.keyCode === 13) { //Enter key-code
 			var pageNo = parseInt($(this).val());
 			var maxPageNo = parseInt($(this)
 				.attr("max"));
@@ -514,20 +539,7 @@ $(document).ready(function() {
 	});
 
 	$("#search-thing").on("click", function() {
-		if (searchKeyword.val() == null
-			|| searchKeyword.val().length < minSearchKeywordLength) {
-			alert("Search keyword should be at least " + minSearchKeywordLength + " characters long.");
-			return;
-		} else if (searchKeyword.val().length > maxSearchKeywordLength) {
-			alert("Search keyword should not exceed " + maxSearchKeywordLength + " characters.");
-			return;
-		} else {
-			searchActive = true;
-			offset = 0;
-			next = 0;
-			previous = 0;
-			populateThings();
-		}
+		doSearch();
 	});
 
 	$("#dataTable").on("click", ".btn-settings", function(_) {
