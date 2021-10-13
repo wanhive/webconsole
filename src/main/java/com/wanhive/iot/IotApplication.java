@@ -62,9 +62,7 @@ public class IotApplication extends ResourceConfig {
 			 */
 			packages("com.fasterxml.jackson.jaxrs.json");
 			packages("com.wanhive.iot.resources");
-			register(com.wanhive.iot.filter.AuthenticationFilter.class);
-			register(com.wanhive.iot.filter.AuthorizationFilter.class);
-			register(com.wanhive.iot.filter.CORSFilter.class);
+			packages("com.wanhive.iot.filter");
 			register(com.wanhive.iot.UncaughtException.class);
 			register(io.swagger.jaxrs.listing.ApiListingResource.class);
 			register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
