@@ -16,9 +16,12 @@ public class Constants {
 
 	private static String dataSourceName;
 	private static String emailSessionName;
-	
+
 	private static ApplicationSettings settings;
 	private static ApplicationInfo info;
+
+	private static int srpKeyLength;
+	private static String srpDigestName;
 
 	static {
 		try {
@@ -69,6 +72,12 @@ public class Constants {
 			info.setUrl(resource.getString("url"));
 			info.setContact(resource.getString("contact"));
 
+			/*
+			 * Populate SRP-6a parameters
+			 */
+			srpKeyLength = Integer.parseInt(resource.getString("agreement.srp.length"));
+			srpDigestName = resource.getString("agreement.srp.digest");
+
 			// SUCCESS
 			Logger.getGlobal().info("Application settings have been loaded");
 		} catch (Exception e) {
@@ -116,5 +125,13 @@ public class Constants {
 
 	public static String getSwaggerHost() {
 		return swaggerHost;
+	}
+
+	public static int getSrpKeyLength() {
+		return srpKeyLength;
+	}
+
+	public static String getSrpDigestName() {
+		return srpDigestName;
 	}
 }

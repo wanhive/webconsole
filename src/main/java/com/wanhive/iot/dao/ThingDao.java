@@ -305,7 +305,8 @@ public class ThingDao {
 		String query = "update wh_thing set modifiedon= now(), salt= ?, verifier= ? from wh_domain where wh_domain.uid = wh_thing.domainuid and wh_domain.useruid=? and wh_thing.uid = ?";
 		try (Connection conn = DataSourceProvider.get().getConnection();
 				PreparedStatement ps = conn.prepareStatement(query);) {
-			Agreement agreement = new Agreement(SRP6CryptoParams.getInstance(2048, "SHA-512"));
+			Agreement agreement = new Agreement(
+					SRP6CryptoParams.getInstance(Constants.getSrpKeyLength(), Constants.getSrpDigestName()));
 			byte[] salt = agreement.generateRandomSalt(16);
 			BigInteger v = agreement
 					.computeVerifier(agreement.computeX(rounds, uid.getBytes(), salt, password.getBytes()));
