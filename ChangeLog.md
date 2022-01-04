@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add the SRP-6a initialization parameters to the internal properties file.
+- Update Jquery and Jquery-UI libraries to the most recent versions.
+
+### Security
+
+- Use 3072-bit SRP-6a group for better password security.
 
 ## [0.7.0] - 2021-11-18
 
