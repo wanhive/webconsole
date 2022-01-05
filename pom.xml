@@ -5,13 +5,13 @@
 
 	<groupId>com.wanhive.iot</groupId>
 	<artifactId>webconsole</artifactId>
-	<version>0.8.0-SNAPSHOT</version>
+	<version>0.8.0</version>
 	<packaging>war</packaging>
 
 	<name>Wanhive IoT web console</name>
 	<description>Web application for the management of users and IoT endpoints.</description>
 	<url>http://www.wanhive.com</url>
-	<inceptionYear>2021</inceptionYear>
+	<inceptionYear>2022</inceptionYear>
 
 	<!-- Project information -->
 	<organization>
@@ -134,7 +134,7 @@
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-jersey2-jaxrs</artifactId>
-			<version>1.6.3</version>
+			<version>1.6.4</version>
 		</dependency>
 	</dependencies>
 
