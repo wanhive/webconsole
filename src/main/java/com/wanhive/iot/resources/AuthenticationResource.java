@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.wanhive.iot.IotApplication;
+import com.wanhive.iot.WebConsole;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.dao.UserDao;
 
@@ -28,7 +28,7 @@ public class AuthenticationResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticate(@FormParam("email") String email, @FormParam("password") String password,
 			@FormParam("captcha") String captcha) throws Exception {
-		if (IotApplication.verifyCaptcha(captcha)) {
+		if (WebConsole.verifyCaptcha(captcha)) {
 			return Response.ok(UserDao.verifyUser(email, password)).build();
 		} else {
 			throw new ForbiddenException();
@@ -39,7 +39,7 @@ public class AuthenticationResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticate(User user) throws Exception {
-		if (IotApplication.verifyCaptcha(user.getCaptcha())) {
+		if (WebConsole.verifyCaptcha(user.getCaptcha())) {
 			return Response.ok(UserDao.verifyUser(user.getEmail(), user.getPassword())).build();
 		} else {
 			throw new ForbiddenException();

@@ -7,13 +7,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletContext;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.ResourceConfig;
@@ -25,7 +23,7 @@ import com.wanhive.iot.provider.ContextLookupProvider;
 import io.swagger.jaxrs.config.BeanConfig;
 
 @ApplicationPath("api")
-public class IotApplication extends ResourceConfig {
+public class WebConsole extends ResourceConfig {
 
 	private void initSwagger(String[] schemes, String host, String basePath) {
 		ApplicationInfo appInfo = Constants.getInfo();
@@ -55,7 +53,7 @@ public class IotApplication extends ResourceConfig {
 		beanConfig.setScan(true);
 	}
 
-	public IotApplication(@Context ServletContext servletContext) throws Exception {
+	public WebConsole() throws Exception {
 		try {
 			/*
 			 * Setup web service

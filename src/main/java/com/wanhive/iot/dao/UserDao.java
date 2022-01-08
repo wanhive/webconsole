@@ -17,7 +17,7 @@ import javax.naming.NamingException;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import com.wanhive.iot.Constants;
-import com.wanhive.iot.IotApplication;
+import com.wanhive.iot.WebConsole;
 import com.wanhive.iot.bean.PagedList;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.provider.DataSourceProvider;
@@ -241,7 +241,7 @@ public class UserDao {
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					uid = rs.getLong(1);
-					IotApplication.sendEmail(email, "Wanhive IoT platform: New account",
+					WebConsole.sendEmail(email, "Wanhive IoT platform: New account",
 							"Your security token: " + rs.getString(2));
 				}
 			}
@@ -332,7 +332,7 @@ public class UserDao {
 			ps.setString(2, context);
 			ps.setString(3, challenge);
 			if (ps.executeUpdate() > 0) {
-				IotApplication.sendEmail(context, "Wanhive IoT platform: Account activated",
+				WebConsole.sendEmail(context, "Wanhive IoT platform: Account activated",
 						"Your account has been activated.");
 			} else {
 				throw new NoSuchElementException("Not found");
@@ -355,7 +355,7 @@ public class UserDao {
 
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
-					IotApplication.sendEmail(email, "Wanhive IoT: Reset password",
+					WebConsole.sendEmail(email, "Wanhive IoT: Reset password",
 							"Your security token (valid for 15 minutes): " + rs.getString(1));
 				}
 			}

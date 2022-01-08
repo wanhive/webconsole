@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import com.wanhive.iot.Constants;
-import com.wanhive.iot.IotApplication;
+import com.wanhive.iot.WebConsole;
 import com.wanhive.iot.bean.Challenge;
 import com.wanhive.iot.bean.User;
 import com.wanhive.iot.dao.UserDao;
@@ -45,7 +45,7 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(@FormParam("alias") String alias, @FormParam("email") String email,
 			@FormParam("captcha") String captcha) throws Exception {
-		if (Constants.isSignUpAllowed() && IotApplication.verifyCaptcha(captcha)) {
+		if (Constants.isSignUpAllowed() && WebConsole.verifyCaptcha(captcha)) {
 			UserDao.create(alias, email);
 			return Response.ok().build();
 		} else {
@@ -57,7 +57,7 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(User user) throws Exception {
-		if (Constants.isSignUpAllowed() && IotApplication.verifyCaptcha(user.getCaptcha())) {
+		if (Constants.isSignUpAllowed() && WebConsole.verifyCaptcha(user.getCaptcha())) {
 			UserDao.create(user.getAlias(), user.getEmail());
 			return Response.ok().build();
 		} else {
@@ -71,7 +71,7 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response activate(@FormParam("context") String context, @FormParam("challenge") String challenge,
 			@FormParam("secret") String secret, @FormParam("captcha") String captcha) throws Exception {
-		if (IotApplication.verifyCaptcha(captcha)) {
+		if (WebConsole.verifyCaptcha(captcha)) {
 			UserDao.activate(context, challenge, secret);
 			return Response.ok().build();
 		} else {
@@ -84,7 +84,7 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response activate(Challenge challenge) throws Exception {
-		if (IotApplication.verifyCaptcha(challenge.getCaptcha())) {
+		if (WebConsole.verifyCaptcha(challenge.getCaptcha())) {
 			UserDao.activate(challenge.getContext(), challenge.getChallenge(), challenge.getSecret());
 			return Response.ok().build();
 		} else {
@@ -97,7 +97,7 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getChallenge(@QueryParam("email") String email, @QueryParam("captcha") String captcha)
 			throws Exception {
-		if (IotApplication.verifyCaptcha(captcha)) {
+		if (WebConsole.verifyCaptcha(captcha)) {
 			UserDao.generateChallenge(email);
 			return Response.ok().build();
 		} else {
