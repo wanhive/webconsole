@@ -2,27 +2,33 @@
  * Domains management
  */
 
+"use strict";
 $(document).ready(function() {
-	var errorMessage = "Request denied";
-	var orderBy = "uid";
-	var order = "desc";
-	var limit = $("#limit");
-	var offset = 0;
-	var next = 0;
-	var previous = 0;
+	//Service request error message
+	const errorMessage = "Request denied";
 
-	var currentRow;
-	var dataTable = $("#dataTable");
-	var domainUid = $("#domainUid");
-	var name = $("#newName");
-	var description = $("#newDescription");
-	var allFields = $([]).add(name).add(description);
-	var tips = $(".validateTips");
+	//Pagination
+	const limit = $("#limit");
+	let orderBy = "uid";
+	let order = "desc";
+	let offset = 0;
+	let next = 0;
+	let previous = 0;
 
-	var searchActive = false;
-	var searchKeyword = $("#searchKeyword");
+	//Data table
+	let currentRow = null;
+	const dataTable = $("#dataTable");
+	const domainUid = $("#domainUid");
+	const name = $("#newName");
+	const description = $("#newDescription");
+	const allFields = $([]).add(name).add(description);
+	const tips = $(".validateTips");
 
-	var addDialog = $("#add-form").dialog({
+	//Search
+	let searchActive = false;
+	const searchKeyword = $("#searchKeyword");
+
+	const addDialog = $("#add-form").dialog({
 		autoOpen: false,
 		height: 520,
 		width: 400,
@@ -41,7 +47,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var confirmDialog = $("#dialog-confirm").dialog({
+	const confirmDialog = $("#dialog-confirm").dialog({
 		autoOpen: false,
 		resizable: false,
 		height: "auto",
@@ -55,7 +61,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var addForm = addDialog.find("form").on("submit", function(event) {
+	const addForm = addDialog.find("form").on("submit", function(event) {
 		event.preventDefault();
 		addDomain();
 	});
@@ -67,10 +73,10 @@ $(document).ready(function() {
 		}, 500);
 	}
 
-	function checkLength(o, n, min, max) {
-		if (o.val().length > max || o.val().length < min) {
-			o.addClass("ui-state-error");
-			updateTips("Length of " + n + " must be between "
+	function checkLength(input, name, min, max) {
+		if (input.val().length > max || input.val().length < min) {
+			input.addClass("ui-state-error");
+			updateTips("Length of " + name + " must be between "
 				+ min + " and " + max + ".");
 			return false;
 		} else {
@@ -79,7 +85,7 @@ $(document).ready(function() {
 	}
 
 	function addDomain() {
-		var valid = true;
+		let valid = true;
 		allFields.removeClass("ui-state-error");
 		valid = valid && checkLength(name, "Name", 1, 64);
 		valid = valid
@@ -99,11 +105,11 @@ $(document).ready(function() {
 	}
 
 	function deleteDomain() {
-		var i = currentRow.find('td:eq(1)').text();
-		var settings = {
+		const id = currentRow.find('td:eq(1)').text();
+		const settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "api/domain/" + i,
+			"url": "api/domain/" + id,
 			"method": "DELETE",
 			"headers": {
 				"Authorization": "Bearer "
@@ -111,7 +117,7 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache",
 				"Content-Type": "application/x-www-form-urlencoded"
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			// Edge case: the last element in the record
@@ -131,8 +137,8 @@ $(document).ready(function() {
 		});
 	}
 
-	function createDomain(n, d) {
-		var settings = {
+	function createDomain(name, description) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/domain",
@@ -144,10 +150,10 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache"
 			},
 			"data": {
-				"name": n,
-				"description": d
+				"name": name,
+				"description": description
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			populateDomains();
@@ -157,11 +163,11 @@ $(document).ready(function() {
 		});
 	}
 
-	function updateDomain(i, n, d) {
-		var settings = {
+	function updateDomain(id, name, description) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "api/domain/" + i,
+			"url": "api/domain/" + id,
 			"method": "PUT",
 			"headers": {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -170,10 +176,10 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache"
 			},
 			"data": {
-				"name": n,
-				"description": d
+				"name": name,
+				"description": description
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			populateDomains();
@@ -197,7 +203,7 @@ $(document).ready(function() {
 	}
 
 	function listDomains() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/domain?orderBy=" + orderBy + "&order="
@@ -210,7 +216,7 @@ $(document).ready(function() {
 					+ authorizationToken,
 				"Cache-Control": "no-cache"
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(response) {
 			populateDataTable(response);
@@ -221,7 +227,7 @@ $(document).ready(function() {
 	}
 
 	function searchDomains() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/domain/search?keyword="
@@ -235,7 +241,7 @@ $(document).ready(function() {
 					+ authorizationToken,
 				"cache-control": "no-cache"
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(response) {
 			populateDataTable(response);
@@ -246,36 +252,36 @@ $(document).ready(function() {
 	}
 
 	function populateDataTable(json) {
-		var tBody = dataTable.children('tbody');
+		const tBody = dataTable.children('tbody');
 		tBody.empty();
-		for (var i = 0; i < json.data.length; i++) {
-			tBody
-				.append('<tr><td>'
-					+ '</td><td>'
-					+ json.data[i].uid
-					+ '</td><td>'
-					+ json.data[i].name
-					+ '</td><td>'
-					+ json.data[i].description
-					+ '</td><td>'
-					+ '<time class="timeago" datetime="'
-					+ json.data[i].createdOn
-					+ '" title="'
-					+ json.data[i].createdOn
-					+ '">'
-					+ json.data[i].createdOn
-					+ '</time>'
-					+ '</td><td><span style="white-space: nowrap;">'
-					+ '<button class="btn-things" title="Manage things"><i class="fab fa-connectdevelop"></i></button>&nbsp;'
-					+ '<button class="btn-modify" title="Modify"><i class="fa fa-edit"></i></button>&nbsp;'
-					+ '<button class="btn-remove" title="Remove"><i class="fa fa-trash"></i></button>'
-					+ '</span></td></tr>');
+		const count = json.data.length;
+		for (const data of json.data) {
+			tBody.append('<tr><td>'
+				+ '</td><td>'
+				+ data.uid
+				+ '</td><td>'
+				+ data.name
+				+ '</td><td>'
+				+ data.description
+				+ '</td><td>'
+				+ '<time class="timeago" datetime="'
+				+ data.createdOn
+				+ '" title="'
+				+ data.createdOn
+				+ '">'
+				+ data.createdOn
+				+ '</time>'
+				+ '</td><td><span style="white-space: nowrap;">'
+				+ '<button class="btn-things" title="Manage things"><i class="fab fa-connectdevelop"></i></button>&nbsp;'
+				+ '<button class="btn-modify" title="Modify"><i class="fa fa-edit"></i></button>&nbsp;'
+				+ '<button class="btn-remove" title="Remove"><i class="fa fa-trash"></i></button>'
+				+ '</span></td></tr>');
 		}
 		$("time.timeago").timeago();
 
-		var currentLimit = parseInt(limit.val());
-		$("#offsetFrom").text(((i > 0) ? (offset + 1) : 0));
-		$("#offsetTo").text((offset + i));
+		const currentLimit = parseInt(limit.val());
+		$("#offsetFrom").text(((count > 0) ? (offset + 1) : 0));
+		$("#offsetTo").text((offset + count));
 		$("#totalRecords").text(json.recordsTotal);
 		previous = (offset > currentLimit) ? (offset - parseInt(limit.val())) : 0;
 		next = ((offset + limit.val()) < json.recordsTotal) ? (offset + currentLimit) : 0;
@@ -358,10 +364,10 @@ $(document).ready(function() {
 
 	$("#pageCounter").on("keyup", function(event) {
 		if (event.keyCode === 13) { //Enter key-code
-			var pageNo = parseInt($(this).val());
-			var maxPageNo = parseInt($(this)
+			const pageNo = parseInt($(this).val());
+			const maxPageNo = parseInt($(this)
 				.attr("max"));
-			var minPageNo = parseInt($(this)
+			const minPageNo = parseInt($(this)
 				.attr("min"));
 
 			if (!isNaN(pageNo) && pageNo <= maxPageNo

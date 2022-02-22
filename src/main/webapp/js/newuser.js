@@ -2,20 +2,20 @@
  * New user sign up
  */
 
+"use strict";
 $(document).ready(function() {
-	var consentMessage = "Please indicate that you have read and agree to the Terms & Conditions and Privacy Policy.";
-	var activationMessage = "Activation code has been sent to your email.";
-	var errorMessage = activationMessage;
+	const consentMessage = "Please indicate that you have read and agree to the Terms & Conditions and Privacy Policy.";
+	const activationMessage = "Activation code has been sent to your email.";
+	const errorMessage = activationMessage;
 	$("#logonform").on("submit", function() {
 		if (!$("#agreement").prop('checked')) {
 			alert(consentMessage);
 			return false;
 		}
-		var email = $("#email").val();
-		var alias = $("#alias").val();
-		var captcha = $("#recaptcha-response")
-			.val();
-		var settings = {
+		const email = $("#email").val();
+		const alias = $("#alias").val();
+		const captcha = $("#recaptcha-response").val();
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/user",
@@ -29,7 +29,7 @@ $(document).ready(function() {
 				"alias": alias,
 				"captcha": captcha
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			alert(activationMessage);

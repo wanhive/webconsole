@@ -2,17 +2,20 @@
  * User account management
  */
 
+"use strict";
 $(document).ready(function() {
-	var errorMessage = "Request denied.";
-	var currentPassword = $("#currentPassword");
-	var newPassword = $("#newPassword");
-	var cnfPassword = $("#cnfPassword");
+	//Service request error message
+	const errorMessage = "Request denied.";
 
-	var allFields = $([]).add(currentPassword).add(newPassword)
+	const currentPassword = $("#currentPassword");
+	const newPassword = $("#newPassword");
+	const cnfPassword = $("#cnfPassword");
+
+	const allFields = $([]).add(currentPassword).add(newPassword)
 		.add(cnfPassword);
-	var tips = $(".validateTips");
+	const tips = $(".validateTips");
 
-	var changePasswordDialog = $("#password-form").dialog({
+	const changePasswordDialog = $("#password-form").dialog({
 		autoOpen: false,
 		height: 520,
 		width: 400,
@@ -30,7 +33,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var confirmDialog = $("#dialog-confirm").dialog({
+	const confirmDialog = $("#dialog-confirm").dialog({
 		autoOpen: false,
 		resizable: false,
 		height: "auto",
@@ -44,7 +47,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var changePasswordForm = changePasswordDialog.find("form").on("submit", function(event) {
+	const changePasswordForm = changePasswordDialog.find("form").on("submit", function(event) {
 		event.preventDefault();
 		changePassword();
 	});
@@ -56,10 +59,10 @@ $(document).ready(function() {
 		}, 500);
 	}
 
-	function checkLength(o, n, min, max) {
-		if (o.val().length > max || o.val().length < min) {
-			o.addClass("ui-state-error");
-			updateTips("Length of " + n + " must be between "
+	function checkLength(input, name, min, max) {
+		if (input.val().length > max || input.val().length < min) {
+			input.addClass("ui-state-error");
+			updateTips("Length of " + name + " must be between "
 				+ min + " and " + max + ".");
 			return false;
 		} else {
@@ -67,11 +70,11 @@ $(document).ready(function() {
 		}
 	}
 
-	function checkInputMatch(x, y, n) {
+	function checkInputMatch(x, y, name) {
 		if (x.val() != y.val()) {
 			x.addClass("ui-state-error");
 			y.addClass("ui-state-error");
-			updateTips(n + " mismatch.");
+			updateTips(name + " mismatch.");
 			return false;
 		} else {
 			return true;
@@ -79,7 +82,7 @@ $(document).ready(function() {
 	}
 
 	function changePassword() {
-		var valid = true;
+		let valid = true;
 		allFields.removeClass("ui-state-error");
 		valid = valid
 			&& checkLength(currentPassword, "Password", 1,
@@ -96,8 +99,8 @@ $(document).ready(function() {
 		return valid;
 	}
 
-	function updatePassword(o, n) {
-		var settings = {
+	function updatePassword(oldPassword, password) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/user/changepassword",
@@ -109,10 +112,10 @@ $(document).ready(function() {
 				"cache-control": "no-cache"
 			},
 			"data": {
-				"oldPassword": o,
-				"password": n
+				"oldPassword": oldPassword,
+				"password": password
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			alert("Password updated");

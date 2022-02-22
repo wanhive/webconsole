@@ -31,11 +31,11 @@ if (session == null || session.getAttribute("user") == null) {
 <script type="text/javascript"
 	src="widget/basic-table/jquery.basictable.min.js"></script>
 <script type="text/javascript">
-	var authorizationToken = '<jsp:getProperty name="user" property="token" />';
-	var minSearchKeywordLength =
+	const authorizationToken = '<jsp:getProperty name="user" property="token" />';
+	const minSearchKeywordLength =
 <%=Constants.getSettings().getMinSearchKeywordLength()%>
 	;
-	var maxSearchKeywordLength =
+	const maxSearchKeywordLength =
 <%=Constants.getSettings().getMaxSearchKeywordLength()%>
 	;
 </script>

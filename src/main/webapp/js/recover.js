@@ -2,14 +2,14 @@
  * Request for existing user account recovery
  */
 
+"use strict";
 $(document).ready(function() {
-	var recoveryMessage = "Activation code has been sent to your email.";
-	var errorMessage = recoveryMessage;
+	const recoveryMessage = "Activation code has been sent to your email.";
+	const errorMessage = recoveryMessage;
 	$("#passform").on("submit", function() {
-		var email = $("#email").val();
-		var captcha = $("#recaptcha-response")
-			.val();
-		var settings = {
+		const email = $("#email").val();
+		const captcha = $("#recaptcha-response").val();
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/user/challenge?email="

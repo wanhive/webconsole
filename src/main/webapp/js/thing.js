@@ -2,35 +2,41 @@
  * Things management
  */
 
+"use strict";
 $(document).ready(function() {
-	var errorMessage = "Request denied";
-	var orderBy = "createdon";
-	var order = "desc";
-	var limit = $("#limit");
-	var offset = 0;
-	var next = 0;
-	var previous = 0;
+	//Service request error message
+	const errorMessage = "Request denied";
 
-	var currentRow;
-	var dataTable = $("#dataTable");
-	var name = $("#newName");
-	var type = $("#newType");
-	var salt = $("#newSalt");
-	var verifier = $("#newVerifier");
-	var password = $("#newPassword");
-	var cnfPassword = $("#cnfPassword");
-	var rounds = $("#newRounds");
-	var thingUid = $("#thingUid");
-	var computeVerifier = $("#computeVerifier");
-	var allFields = $([]).add(name).add(type).add(salt).add(
+	//Pagination
+	const limit = $("#limit");
+	let orderBy = "createdon";
+	let order = "desc";
+	let offset = 0;
+	let next = 0;
+	let previous = 0;
+
+	//Data table
+	let currentRow = null;
+	const dataTable = $("#dataTable");
+	const name = $("#newName");
+	const type = $("#newType");
+	const salt = $("#newSalt");
+	const verifier = $("#newVerifier");
+	const password = $("#newPassword");
+	const cnfPassword = $("#cnfPassword");
+	const rounds = $("#newRounds");
+	const thingUid = $("#thingUid");
+	const computeVerifier = $("#computeVerifier");
+	const allFields = $([]).add(name).add(type).add(salt).add(
 		verifier).add(password).add(cnfPassword)
 		.add(rounds);
-	var tips = $(".validateTips");
+	const tips = $(".validateTips");
 
-	var searchActive = false;
-	var searchKeyword = $("#searchKeyword");
+	//Search
+	let searchActive = false;
+	const searchKeyword = $("#searchKeyword");
 
-	var addDialog = $("#add-form").dialog({
+	const addDialog = $("#add-form").dialog({
 		autoOpen: false,
 		height: 520,
 		width: 400,
@@ -50,7 +56,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var confirmDialog = $("#dialog-confirm").dialog({
+	const confirmDialog = $("#dialog-confirm").dialog({
 		autoOpen: false,
 		resizable: false,
 		height: "auto",
@@ -64,7 +70,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var addForm = addDialog.find("form").on("submit", function(event) {
+	const addForm = addDialog.find("form").on("submit", function(event) {
 		event.preventDefault();
 		addThing();
 	});
@@ -76,10 +82,10 @@ $(document).ready(function() {
 		}, 500);
 	}
 
-	function checkLength(o, n, min, max) {
-		if (o.val().length > max || o.val().length < min) {
-			o.addClass("ui-state-error");
-			updateTips("Length of " + n + " must be between "
+	function checkLength(input, name, min, max) {
+		if (input.val().length > max || input.val().length < min) {
+			input.addClass("ui-state-error");
+			updateTips("Length of " + name + " must be between "
 				+ min + " and " + max + ".");
 			return false;
 		} else {
@@ -87,21 +93,21 @@ $(document).ready(function() {
 		}
 	}
 
-	function checkInputMatch(x, y, n) {
+	function checkInputMatch(x, y, name) {
 		if (x.val() != y.val()) {
 			x.addClass("ui-state-error");
 			y.addClass("ui-state-error");
-			updateTips(n + " mismatch");
+			updateTips(name + " mismatch");
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-	function checkRange(x, n, min, max) {
+	function checkRange(x, name, min, max) {
 		if (x.val() < min || x.val() > max) {
 			x.addClass("ui-state-error");
-			updateTips("Value of " + n + " must be between "
+			updateTips("Value of " + name + " must be between "
 				+ min + " and " + max + ".");
 			return false;
 		} else {
@@ -110,7 +116,7 @@ $(document).ready(function() {
 	}
 
 	function addThing() {
-		var valid = true;
+		let valid = true;
 		allFields.removeClass("ui-state-error");
 		if (computeVerifier.val().length > 0) {
 			valid = valid
@@ -142,11 +148,11 @@ $(document).ready(function() {
 	}
 
 	function deleteThing() {
-		var i = currentRow.find('td:eq(1)').text();
-		var settings = {
+		const id = currentRow.find('td:eq(1)').text();
+		const settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "api/thing/" + i,
+			"url": "api/thing/" + id,
 			"method": "DELETE",
 			"headers": {
 				"Authorization": "Bearer "
@@ -154,7 +160,7 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache",
 				"Content-Type": "application/x-www-form-urlencoded"
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			// Edge case: the last element in the record
@@ -174,8 +180,8 @@ $(document).ready(function() {
 		});
 	}
 
-	function createThing(n, t) {
-		var settings = {
+	function createThing(name, type) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/thing",
@@ -187,11 +193,11 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache"
 			},
 			"data": {
-				"name": n,
+				"name": name,
 				"domainUid": domainUid,
-				"type": t
+				"type": type
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			populateThings();
@@ -201,11 +207,11 @@ $(document).ready(function() {
 		});
 	}
 
-	function updateThing(i, n, t, s, v) {
-		var settings = {
+	function updateThing(id, name, type, salt, verifier) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "api/thing/" + i,
+			"url": "api/thing/" + id,
 			"method": "PUT",
 			"headers": {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -214,12 +220,12 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache"
 			},
 			"data": {
-				"name": n,
-				"type": t,
-				"salt": s.trim(),
-				"verifier": v.trim()
+				"name": name,
+				"type": type,
+				"salt": salt.trim(),
+				"verifier": verifier.trim()
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			populateThings();
@@ -229,11 +235,11 @@ $(document).ready(function() {
 		});
 	}
 
-	function updateVerifier(i, p, r) {
-		var settings = {
+	function updateVerifier(id, password, rounds) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "api/thing/" + i + "/verifier",
+			"url": "api/thing/" + id + "/verifier",
 			"method": "PUT",
 			"headers": {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -242,10 +248,10 @@ $(document).ready(function() {
 				"cache-control": "no-cache"
 			},
 			"data": {
-				"rounds": r,
-				"password": p
+				"rounds": rounds,
+				"password": password
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			alert("Verifier updated");
@@ -269,7 +275,7 @@ $(document).ready(function() {
 	}
 
 	function listThings() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/thing?domainUid=" + domainUid
@@ -283,7 +289,7 @@ $(document).ready(function() {
 					+ authorizationToken,
 				"Cache-Control": "no-cache"
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(response) {
 			populateDataTable(response);
@@ -294,7 +300,7 @@ $(document).ready(function() {
 	}
 
 	function searchThings() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/thing/search?domainUid=" + domainUid
@@ -309,7 +315,7 @@ $(document).ready(function() {
 					+ authorizationToken,
 				"cache-control": "no-cache"
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(response) {
 			populateDataTable(response);
@@ -354,36 +360,36 @@ $(document).ready(function() {
 	}
 
 	function populateDataTable(json) {
-		var tBody = dataTable.children('tbody');
+		const tBody = dataTable.children('tbody');
 		tBody.empty();
-		for (var i = 0; i < json.data.length; i++) {
-			tBody
-				.append('<tr><td>'
-					+ '</td><td>'
-					+ json.data[i].uid
-					+ '</td><td>'
-					+ json.data[i].name
-					+ '</td><td>'
-					+ typeCodeToText(json.data[i].type)
-					+ '</td><td>'
-					+ '<time class="timeago" datetime="'
-					+ json.data[i].createdOn
-					+ '" title="'
-					+ json.data[i].createdOn
-					+ '">'
-					+ json.data[i].createdOn
-					+ '</time>'
-					+ '</td><td><span style="white-space: nowrap;">'
-					+ '<button class="btn-settings" title="Settings"><i class="fas fa-shield-alt"></i></button>&nbsp;'
-					+ '<button class="btn-modify" title="Modify"><i class="fa fa-edit"></i></button>&nbsp;'
-					+ '<button class="btn-remove" title="Remove"><i class="fa fa-trash"></i></button>'
-					+ '</span></td></tr>');
+		const count = json.data.length;
+		for (const data of json.data) {
+			tBody.append('<tr><td>'
+				+ '</td><td>'
+				+ data.uid
+				+ '</td><td>'
+				+ data.name
+				+ '</td><td>'
+				+ typeCodeToText(data.type)
+				+ '</td><td>'
+				+ '<time class="timeago" datetime="'
+				+ data.createdOn
+				+ '" title="'
+				+ data.createdOn
+				+ '">'
+				+ data.createdOn
+				+ '</time>'
+				+ '</td><td><span style="white-space: nowrap;">'
+				+ '<button class="btn-settings" title="Settings"><i class="fas fa-shield-alt"></i></button>&nbsp;'
+				+ '<button class="btn-modify" title="Modify"><i class="fa fa-edit"></i></button>&nbsp;'
+				+ '<button class="btn-remove" title="Remove"><i class="fa fa-trash"></i></button>'
+				+ '</span></td></tr>');
 		}
 		$("time.timeago").timeago();
 
-		var currentLimit = parseInt(limit.val());
-		$("#offsetFrom").text(((i > 0) ? (offset + 1) : 0));
-		$("#offsetTo").text((offset + i));
+		const currentLimit = parseInt(limit.val());
+		$("#offsetFrom").text(((count > 0) ? (offset + 1) : 0));
+		$("#offsetTo").text((offset + count));
 		$("#totalRecords").text(json.recordsTotal);
 		previous = (offset > currentLimit) ? (offset - parseInt(limit.val())) : 0;
 		next = ((offset + limit.val()) < json.recordsTotal) ? (offset + currentLimit) : 0;
@@ -395,7 +401,7 @@ $(document).ready(function() {
 	}
 
 	function loadDomainInfo() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/domain/" + domainUid,
@@ -406,7 +412,7 @@ $(document).ready(function() {
 					+ authorizationToken,
 				"Cache-Control": "no-cache",
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(response) {
 			$("aside.right")
@@ -497,10 +503,10 @@ $(document).ready(function() {
 
 	$("#pageCounter").on("keyup", function(event) {
 		if (event.keyCode === 13) { //Enter key-code
-			var pageNo = parseInt($(this).val());
-			var maxPageNo = parseInt($(this)
+			const pageNo = parseInt($(this).val());
+			const maxPageNo = parseInt($(this)
 				.attr("max"));
-			var minPageNo = parseInt($(this)
+			const minPageNo = parseInt($(this)
 				.attr("min"));
 
 			if (!isNaN(pageNo) && pageNo <= maxPageNo

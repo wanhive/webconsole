@@ -3,8 +3,9 @@
  * the user clicks on the icon.
  */
 
+"use strict";
 function toggleNavBar() {
-	var x = document.getElementById("topnav");
+	const x = document.getElementById("topnav");
 	if (x.className === "topnav") {
 		x.className += " responsive";
 	} else {

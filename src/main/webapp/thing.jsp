@@ -39,20 +39,20 @@ try {
 <script type="text/javascript"
 	src="widget/basic-table/jquery.basictable.min.js"></script>
 <script type="text/javascript">
-	var authorizationToken = '<jsp:getProperty name="user" property="token" />';
-	var domainUid =
+	const authorizationToken = '<jsp:getProperty name="user" property="token" />';
+	const domainUid =
 <%=domainUid%>
 	;
-	var maxPasswordHashRounds =
+	const maxPasswordHashRounds =
 <%=Constants.getSettings().getMaxPasswordHashRounds()%>
 	;
-	var maxThingsPerDomain =
+	const maxThingsPerDomain =
 <%=Constants.getSettings().getMaxThingsPerDomain()%>
 	;
-	var minSearchKeywordLength =
+	const minSearchKeywordLength =
 <%=Constants.getSettings().getMinSearchKeywordLength()%>
 	;
-	var maxSearchKeywordLength =
+	const maxSearchKeywordLength =
 <%=Constants.getSettings().getMaxSearchKeywordLength()%>
 	;
 </script>

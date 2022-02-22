@@ -3,6 +3,7 @@
  * or, an existing user attempting account recovery.
  */
 
+"use strict";
 $(document).ready(function() {
 	$('#secret, #cnfsecret').on('keyup', function() {
 		if ($('#secret').val() == $('#cnfsecret').val()) {
@@ -15,7 +16,7 @@ $(document).ready(function() {
 	});
 
 	$("#activationForm").submit(function() {
-		var challenge = $('input[name=challenge]');
+		const challenge = $('input[name=challenge]');
 		challenge.val(challenge.val().trim());
 		return true;
 	});

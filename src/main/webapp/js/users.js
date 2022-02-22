@@ -2,36 +2,40 @@
  * Users management
  */
 
+"use strict";
 $(document).ready(function() {
-	var errorMessage = "Request denied";
-	var orderBy = "uid";
-	var order = "desc";
-	var limit = $("#limit");
-	var offset = 0;
-	var next = 0;
-	var previous = 0;
+	//Service request error message
+	const errorMessage = "Request denied";
 
-	var currentRow;
-	var dataTable = $("#dataTable");
-	var alias = $("#alias");
-	var email = $("#email");
-	var password = $("#newPassword");
-	var cnfPassword = $("#cnfPassword");
-	var userType = $("#newType");
-	var userStatus = $("#newStatus");
-	var userUid = $("#userUid");
+	//Pagination
+	const limit = $("#limit");
+	let orderBy = "uid";
+	let order = "desc";
+	let offset = 0;
+	let next = 0;
+	let previous = 0;
 
-	var typeFilter = $("#typeFilter");
-	var statusFilter = $("#statusFilter");
-
-	var allFields = $([]).add(alias).add(email).add(password)
+	//Data table
+	let currentRow = null;
+	const dataTable = $("#dataTable");
+	const alias = $("#alias");
+	const email = $("#email");
+	const password = $("#newPassword");
+	const cnfPassword = $("#cnfPassword");
+	const userType = $("#newType");
+	const userStatus = $("#newStatus");
+	const userUid = $("#userUid");
+	const typeFilter = $("#typeFilter");
+	const statusFilter = $("#statusFilter");
+	const allFields = $([]).add(alias).add(email).add(password)
 		.add(cnfPassword).add(userType).add(userStatus);
-	var tips = $(".validateTips");
+	const tips = $(".validateTips");
 
-	var searchActive = false;
-	var searchKeyword = $("#searchKeyword");
+	//Search
+	let searchActive = false;
+	const searchKeyword = $("#searchKeyword");
 
-	var addDialog = $("#add-form").dialog({
+	const addDialog = $("#add-form").dialog({
 		autoOpen: false,
 		height: 520,
 		width: 400,
@@ -50,7 +54,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var updateDialog = $("#update-form").dialog({
+	const updateDialog = $("#update-form").dialog({
 		autoOpen: false,
 		height: 520,
 		width: 400,
@@ -69,12 +73,12 @@ $(document).ready(function() {
 		}
 	});
 
-	var addForm = addDialog.find("form").on("submit", function(event) {
+	const addForm = addDialog.find("form").on("submit", function(event) {
 		event.preventDefault();
 		addUser();
 	});
 
-	var updateForm = updateDialog.find("form").on("submit", function(event) {
+	const updateForm = updateDialog.find("form").on("submit", function(event) {
 		event.preventDefault();
 		addUser();
 	});
@@ -86,10 +90,10 @@ $(document).ready(function() {
 		}, 500);
 	}
 
-	function checkLength(o, n, min, max) {
-		if (o.val().length > max || o.val().length < min) {
-			o.addClass("ui-state-error");
-			updateTips("Length of " + n + " must be between "
+	function checkLength(input, name, min, max) {
+		if (input.val().length > max || input.val().length < min) {
+			input.addClass("ui-state-error");
+			updateTips("Length of " + name + " must be between "
 				+ min + " and " + max + ".");
 			return false;
 		} else {
@@ -97,11 +101,11 @@ $(document).ready(function() {
 		}
 	}
 
-	function checkInputMatch(x, y, n) {
+	function checkInputMatch(x, y, name) {
 		if (x.val() != y.val()) {
 			x.addClass("ui-state-error");
 			y.addClass("ui-state-error");
-			updateTips(n + " mismatch");
+			updateTips(name + " mismatch");
 			return false;
 		} else {
 			return true;
@@ -165,7 +169,7 @@ $(document).ready(function() {
 	}
 
 	function addUser() {
-		var valid = true;
+		let valid = true;
 		allFields.removeClass("ui-state-error");
 		valid = valid && checkLength(alias, "Alias", 1, 64);
 		valid = valid && checkLength(email, "Email", 1, 64);
@@ -177,7 +181,7 @@ $(document).ready(function() {
 	}
 
 	function modifyUser() {
-		var valid = true;
+		let valid = true;
 		allFields.removeClass("ui-state-error");
 		if (password.val().length > 0) {
 			valid = valid
@@ -194,8 +198,8 @@ $(document).ready(function() {
 		return valid;
 	}
 
-	function createUser(a, e) {
-		var settings = {
+	function createUser(alias, email) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/admin/user",
@@ -207,10 +211,10 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache"
 			},
 			"data": {
-				"alias": a,
-				"email": e
+				"alias": alias,
+				"email": email
 			}
-		}
+		};
 
 		$.ajax(settings).done(function(_) {
 			populateUsers();
@@ -220,11 +224,11 @@ $(document).ready(function() {
 		});
 	}
 
-	function updateUser(i, p, t, s) {
-		var settings = {
+	function updateUser(id, password, type, status) {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "api/admin/user/" + i,
+			"url": "api/admin/user/" + id,
 			"method": "PUT",
 			"headers": {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -233,9 +237,9 @@ $(document).ready(function() {
 				"Cache-Control": "no-cache"
 			},
 			"data": {
-				"password": p,
-				"type": t,
-				"status": s
+				"password": password,
+				"type": type,
+				"status": status
 			}
 		};
 
@@ -261,7 +265,7 @@ $(document).ready(function() {
 	}
 
 	function listUsers() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/admin/user?orderBy=" + orderBy
@@ -287,7 +291,7 @@ $(document).ready(function() {
 	}
 
 	function searchUsers() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/admin/user/search?keyword="
@@ -314,7 +318,7 @@ $(document).ready(function() {
 	}
 
 	function purgeBearerTokens() {
-		var settings = {
+		const settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": "api/admin/user/tokens",
@@ -325,6 +329,7 @@ $(document).ready(function() {
 				"cache-control": "no-cache"
 			}
 		};
+
 		$.ajax(settings).done(function(_) {
 			alert("All bearer tokens deleted");
 			window.location.href = "index.jsp";
@@ -335,38 +340,39 @@ $(document).ready(function() {
 	}
 
 	function populateDataTable(json) {
-		var tBody = dataTable.children('tbody');
+		const tBody = dataTable.children('tbody');
 		tBody.empty();
-		for (var i = 0; i < json.data.length; i++) {
-			tBody
-				.append('<tr><td>'
-					+ '</td><td>'
-					+ json.data[i].uid
-					+ '</td><td style="word-break:break-all;">'
-					+ json.data[i].email
-					+ '</td><td style="word-break:break-all;">'
-					+ json.data[i].alias
-					+ '</td><td>'
-					+ typeCodeToText(json.data[i].type)
-					+ '</td><td>'
-					+ statusCodeToText(json.data[i].status)
-					+ '</td><td>'
-					+ '<time class="timeago" datetime="'
-					+ json.data[i].createdOn
-					+ '" title="'
-					+ json.data[i].createdOn
-					+ '">'
-					+ json.data[i].createdOn
-					+ '</time>'
-					+ '</td><td><span style="white-space: nowrap;">'
-					+ '<button class="btn-modify" title="Modify"><i class="fa fa-edit"></i></button>&nbsp;'
-					+ '</span></td></tr>');
+		const count = json.data.length;
+		for (const data of json.data) {
+			tBody.append('<tr><td>'
+				+ '</td><td>'
+				+ data.uid
+				+ '</td><td style="word-break:break-all;">'
+				+ data.email
+				+ '</td><td style="word-break:break-all;">'
+				+ data.alias
+				+ '</td><td>'
+				+ typeCodeToText(data.type)
+				+ '</td><td>'
+				+ statusCodeToText(data.status)
+				+ '</td><td>'
+				+ '<time class="timeago" datetime="'
+				+ data.createdOn
+				+ '" title="'
+				+ data.createdOn
+				+ '">'
+				+ data.createdOn
+				+ '</time>'
+				+ '</td><td><span style="white-space: nowrap;">'
+				+ '<button class="btn-modify" title="Modify"><i class="fa fa-edit"></i></button>&nbsp;'
+				+ '</span></td></tr>');
 		}
+
 		$("time.timeago").timeago();
 
-		var currentLimit = parseInt(limit.val());
-		$("#offsetFrom").text(((i > 0) ? (offset + 1) : 0));
-		$("#offsetTo").text((offset + i));
+		const currentLimit = parseInt(limit.val());
+		$("#offsetFrom").text(((count > 0) ? (offset + 1) : 0));
+		$("#offsetTo").text((offset + count));
 		$("#totalRecords").text(json.recordsTotal);
 		previous = (offset > currentLimit) ? (offset - parseInt(limit
 			.val()))
@@ -457,10 +463,10 @@ $(document).ready(function() {
 
 	$("#pageCounter").on("keyup", function(event) {
 		if (event.keyCode === 13) { //Enter key-code
-			var pageNo = parseInt($(this).val());
-			var maxPageNo = parseInt($(this)
+			const pageNo = parseInt($(this).val());
+			const maxPageNo = parseInt($(this)
 				.attr("max"));
-			var minPageNo = parseInt($(this)
+			const minPageNo = parseInt($(this)
 				.attr("min"));
 
 			if (!isNaN(pageNo) && pageNo <= maxPageNo
