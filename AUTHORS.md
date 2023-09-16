@@ -1,6 +1,5 @@
 # Current maintainers
 
-In alphabetic order
+In alphabetical order
 
-* Amit Kumar (https://en.wikipedia.org/wiki/User:Amitkriit)
-* Wanhive Systems Private Limited (www.wanhive.com)
+* Wanhive Systems Private Limited (https://www.wanhive.com)
